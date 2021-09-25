@@ -1,0 +1,16 @@
+tags:
+  Hely:
+    item: 421
+    data: 0
+    amount: 1
+    slot: 1
+    displayname: "#Hely"
+    category: "normal"
+    permission: "neon.tag.Hely"
+    lore:
+      equiped:
+        - ""
+      equip:
+        - ""
+      no_perm:
+        - ""

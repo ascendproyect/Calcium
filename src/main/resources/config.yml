@@ -1,0 +1,22 @@
+settings:
+  menu:
+    main:
+      title: "&a&lNeon tags"
+      fill:
+        enabled: true
+        data: 8
+
+categorys:
+  normal:
+    item: 54
+    data: 0
+    amount: 1
+    slot: 1
+    displayname: "&eNormal category"
+    lore:
+      - ""
+    menu:
+      title: "&7Normal tags"
+      fill:
+        enabled: true
+        data: 8
