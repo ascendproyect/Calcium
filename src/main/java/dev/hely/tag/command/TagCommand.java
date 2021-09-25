@@ -29,7 +29,7 @@ public class TagCommand extends BaseCommand {
                 player.sendMessage(CC.translate("  &a&lNeon tags"));
                 player.sendMessage(CC.translate("&7"));
                 player.sendMessage(CC.translate("&7 Version: " + Neon.getPlugin().getDescription().getVersion()));
-                player.sendMessage(CC.translate("&7 Author: ByJoako"));
+                player.sendMessage(CC.translate("&7 Author: ByJoako, LeandroSSJ"));
                 player.sendMessage(CC.translate("&7"));
             }
         }

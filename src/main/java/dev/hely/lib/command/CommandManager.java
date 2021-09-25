@@ -1,6 +1,5 @@
 package dev.hely.lib.command;
 
-import dev.hely.lib.CC;
 import dev.hely.lib.manager.Manager;
 import dev.hely.lib.wrapper.ClassWrapper;
 import dev.hely.tag.command.TagCommand;
