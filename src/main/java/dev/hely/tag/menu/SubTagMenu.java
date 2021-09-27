@@ -1,21 +1,23 @@
 package dev.hely.tag.menu;
 
+import dev.hely.lib.CC;
 import dev.hely.lib.maker.ItemMaker;
-import dev.hely.lib.menu.Menu;
 import dev.hely.lib.menu.button.Button;
+import dev.hely.lib.menu.pagination.PaginatedMenu;
 import dev.hely.tag.Neon;
 import dev.hely.tag.module.category.Category;
 import dev.hely.tag.module.tag.Tags;
 import lombok.AllArgsConstructor;
-import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.ClickType;
 import org.bukkit.inventory.ItemStack;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
-public class SubTagMenu extends Menu {
+public class SubTagMenu extends PaginatedMenu {
 
     private final Category category;
 
@@ -24,24 +26,13 @@ public class SubTagMenu extends Menu {
     }
 
     @Override
-    public String getTitle(Player player) {
+    public String getPrePaginatedTitle(Player player) {
         return category.getTitle();
     }
 
-
     @Override
-    public void onClose(Player player) {
-        new TagMenu().openMenu(player);
-    }
-
-    @Override
-    public Map<Integer, Button> getButtons(Player player) {
+    public Map<Integer, Button> getAllPagesButtons(Player player) {
         Map<Integer, Button> button = new HashMap<>();
-        if(category.isFill()){
-            for (int i = 0; i < getSize(); ++i) {
-                button.put(i, new SeparatorButton(category));
-            }
-        }
 
         Neon.getPlugin().getModuleManager().getTags().getTags().forEach(tags -> {
             if(tags.getCategory().equalsIgnoreCase(category.getName())){
@@ -58,29 +49,38 @@ public class SubTagMenu extends Menu {
 
         @Override
         public ItemStack getButtonItem(Player player) {
+            List<String> lore = new ArrayList<>();
+            if(player.hasPermission(tags.getPerm())
+                    && Neon.getPlugin().getProfileManager().getTag(player).equalsIgnoreCase(tags.getDisplayname())){
+                for(String l:tags.getEquiped()){
+                    lore.add(l.replace("%player_name%", player.getName())
+                            .replace("%tag_display%", tags.getDisplayname()));
+                }
+            }else if(player.hasPermission(tags.getPerm())){
+                for(String l:tags.getEquip()){
+                    lore.add(l.replace("%player_name%", player.getName())
+                            .replace("%tag_display%", tags.getDisplayname()));
+                }
+            }else{
+                for(String l:tags.getNo_perm()){
+                    lore.add(l.replace("%player_name%", player.getName())
+                            .replace("%tag_display%", tags.getDisplayname()));
+                }
+            }
             return ItemMaker.of(tags.getItem().getType()).data(tags.getItem().getData().getData())
-                    .amount(tags.getItem().getAmount()).displayName(tags.getDisplayname()).lore(tags.getEquip())
+                    .amount(tags.getItem().getAmount()).displayName(tags.getDisplayname()).lore(lore)
                     .build();
         }
 
         @Override
         public void clicked(Player player, int slot, ClickType clickType, int hotbarButton) {
-        }
-    }
-
-    @AllArgsConstructor
-    private static class SeparatorButton extends Button {
-
-        private final Category category;
-
-        @Override
-        public ItemStack getButtonItem(Player player) {
-            return ItemMaker.of(Material.STAINED_GLASS_PANE).data((short) category.getFill_data()).displayName("")
-                    .build();
-        }
-
-        @Override
-        public void clicked(Player player, int slot, ClickType clickType, int hotbarButton) {
+            if(player.hasPermission(tags.getPerm())){
+                Neon.getPlugin().getProfileManager().setTag(player.getUniqueId(), tags.getDisplayname());
+                player.closeInventory();
+                for(String m:Neon.getPlugin().getConfig().getStringList("settings.selected_tag")){
+                    player.sendMessage(CC.translate(m));
+                }
+            }
         }
     }
 }

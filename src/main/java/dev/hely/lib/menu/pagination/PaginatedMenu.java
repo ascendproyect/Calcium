@@ -55,7 +55,7 @@ public abstract class PaginatedMenu extends Menu {
         }
         buttons.put(0, new PageButton(-1, this));
         if (this.infoButton) {
-            buttons.put(4, new PageInfoButton(this));
+            buttons.put(4, new PageInfoButton());
         }
         buttons.put(8, new PageButton(1, this));
 

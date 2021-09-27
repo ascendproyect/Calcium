@@ -20,17 +20,15 @@ public class CategoryManager {
     public void onLoad(){
         this.category.clear();
         for(String category: Neon.getPlugin().getConfig().getConfigurationSection("categorys").getKeys(false)){
-            String displayname = Neon.getPlugin().getConfig().getString("category." + category + ".displayname");
-            List<String> lore = Neon.getPlugin().getConfig().getStringList("category." + category + ".lore");
-            ItemStack item = ItemMaker.of(Material.getMaterial(Neon.getPlugin().getConfig().getInt("category." + category + ".item")))
-                    .amount(Neon.getPlugin().getConfig().getInt("category." + category + ".amount"))
-                    .data((short) Neon.getPlugin().getConfig().getInt("category." + category + ".data")).build();
-            int slot = Neon.getPlugin().getConfig().getInt("category." + category + ".slot");
+            String displayname = Neon.getPlugin().getConfig().getString("categorys." + category + ".displayname");
+            List<String> lore = Neon.getPlugin().getConfig().getStringList("categorys." + category + ".lore");
+            ItemStack item = ItemMaker.of(Material.getMaterial(Neon.getPlugin().getConfig().getInt("categorys." + category + ".item")))
+                    .amount(Neon.getPlugin().getConfig().getInt("categorys." + category + ".amount"))
+                    .data((short) Neon.getPlugin().getConfig().getInt("categorys." + category + ".data")).build();
+            int slot = Neon.getPlugin().getConfig().getInt("categorys." + category + ".slot");
 
-            String title = Neon.getPlugin().getConfig().getString("category." + category + ".menu.title");
-            boolean fill = Neon.getPlugin().getConfig().getBoolean("category." + category + ".menu.fill.enabled");
-            int fill_data = Neon.getPlugin().getConfig().getInt("category." + category + ".menu.fill.data");
-            this.category.add(new Category(category, displayname, lore, item, slot, title, fill, fill_data));
+            String title = Neon.getPlugin().getConfig().getString("categorys." + category + ".menu.title");
+            this.category.add(new Category(category, displayname, lore, item, slot, title));
         }
     }
     public void onDisable(){

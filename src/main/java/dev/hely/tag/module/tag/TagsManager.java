@@ -29,13 +29,13 @@ public class TagsManager {
             String category = Neon.getPlugin().getTagsConfig().getConfig().getString("tags."+tag+".category");
             String perm = Neon.getPlugin().getTagsConfig().getConfig().getString("tags."+tag+".permission");
 
-            List<String> equiped = Neon.getPlugin().getTagsConfig().getConfig().getStringList("tags."+tag+".lore.equiped");
+            List<String> equipped = Neon.getPlugin().getTagsConfig().getConfig().getStringList("tags."+tag+".lore.equipped");
             List<String> equip = Neon.getPlugin().getTagsConfig().getConfig().getStringList("tags."+tag+".lore.equip");
             List<String> no_perm = Neon.getPlugin().getTagsConfig().getConfig().getStringList("tags."+tag+".lore.no_perm");
 
             int slot = Neon.getPlugin().getTagsConfig().getConfig().getInt("tags."+tag+".slot");
 
-            this.tags.add(new Tags(item, tag, displayname, category, perm, equiped, equip, no_perm, slot));
+            this.tags.add(new Tags(item, tag, displayname, category, perm, equipped, equip, no_perm, slot));
         }
     }
 

@@ -24,7 +24,4 @@ public class Category {
     private int slot;
 
     private String title;
-
-    private boolean fill;
-    private int fill_data;
 }

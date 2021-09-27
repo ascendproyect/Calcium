@@ -31,7 +31,7 @@ public enum CommandManager implements Manager {
         this.commands.add(new TagCommand());
 
         this.commands.forEach(this::registerCommand);
-        Bukkit.getLogger().info("[Neon] Register " + this.commands.size() + "command");
+        Bukkit.getLogger().info("[Neon] Register " + this.commands.size() + " command");
     }
 
 

@@ -22,6 +22,11 @@ public class TagMenu extends Menu {
     }
 
     @Override
+    public int getSize() {
+        return Neon.getPlugin().getConfig().getInt("settings.menu.main.raw") * 9;
+    }
+
+    @Override
     public Map<Integer, Button> getButtons(Player player) {
         Map<Integer, Button> button = new HashMap<>();
         if(Neon.getPlugin().getConfig().getBoolean("settings.menu.main.fill.enabled")){
@@ -58,7 +63,7 @@ public class TagMenu extends Menu {
 
         @Override
         public ItemStack getButtonItem(Player player) {
-            return ItemMaker.of(Material.STAINED_GLASS_PANE).data((short) Neon.getPlugin().getConfig().getInt("settings.menu.main.fill.data")).displayName("")
+            return ItemMaker.of(Material.STAINED_GLASS_PANE).data((short) Neon.getPlugin().getConfig().getInt("settings.menu.main.fill.data")).displayName("&7")
                     .build();
         }
 

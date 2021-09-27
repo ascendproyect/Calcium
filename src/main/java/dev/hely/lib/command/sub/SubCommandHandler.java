@@ -1,9 +1,7 @@
 package dev.hely.lib.command.sub;
 
-
-import dev.hely.hcf.util.config.Language;
-import dev.hely.lib.CC;
 import dev.hely.lib.command.CommandManager;
+import dev.hely.tag.Neon;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.command.defaults.BukkitCommand;
@@ -78,23 +76,19 @@ public class SubCommandHandler extends BukkitCommand {
         SubCommand sub = this.getSubCommand(args[0]);
 
         if(sub == null) {
-            sender.sendMessage(CC.translate(Language.ARGUMENT_NOT_FOUND
-                    .replace("%argument%", args[0])));
             return true;
         }
 
         if(sub.isPlayerOnly && sender instanceof ConsoleCommandSender) {
-            sender.sendMessage(CC.translate(Language.EXECUTE_COMMAND_ONLY_PLAYER));
             return true;
         }
 
         if(sub.getPermission() != null && !sender.hasPermission(sub.getPermission())) {
-            sender.sendMessage(CC.translate(Language.NO_PERMISSION));
             return true;
         }
 
         if(sub.isExecuteAsync()) {
-            Tasks.async(() -> sub.execute(sender, Arrays.copyOfRange(args, 1, args.length)));
+            Neon.async(() -> sub.execute(sender, Arrays.copyOfRange(args, 1, args.length)));
         } else {
             sub.execute(sender, Arrays.copyOfRange(args, 1, args.length));
         }

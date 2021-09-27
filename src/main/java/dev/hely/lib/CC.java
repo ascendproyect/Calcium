@@ -1,6 +1,5 @@
 package dev.hely.lib;
 
-import dev.hely.hcf.util.FakeGlow;
 import lombok.experimental.UtilityClass;
 import org.bukkit.ChatColor;
 import org.bukkit.enchantments.Enchantment;
@@ -46,7 +45,7 @@ public class CC {
         return ChatColor.translateAlternateColorCodes('&', input);
     }
 
-    public static List<String> translate(List<String> input) {
+    public static List<String> translateList(List<String> input) {
         assertNotNull(input);
 
         return input.stream().map(CC::translate).collect(Collectors.toList());
@@ -55,10 +54,5 @@ public class CC {
 
     public static String capitalize(String string) {
         return String.valueOf(string.charAt(0)).toUpperCase() + string.substring(1);
-    }
-
-
-    static {
-        FAKE_GLOW = new FakeGlow(70);
     }
 }

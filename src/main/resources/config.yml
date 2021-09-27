@@ -1,22 +1,47 @@
 settings:
+  storage:
+    drive: "YML"
+
+    mysql:
+      host: ""
+      port: 3306
+      database: "Neon"
+      user: "root"
+      password: ""
+
+  selected_tag:
+    - "&aYou have successfully selected this tag"
+
   menu:
     main:
-      title: "&a&lNeon tags"
+      title: "&9&lNeon tags"
+      raw: 3
       fill:
         enabled: true
-        data: 8
+        data: 15
 
 categorys:
-  normal:
+  common:
     item: 54
     data: 0
     amount: 1
-    slot: 1
-    displayname: "&eNormal category"
+    slot: 12
+    displayname: "&eCommon category"
     lore:
       - ""
+      - "&7Click to open common category"
+      - ""
     menu:
-      title: "&7Normal tags"
-      fill:
-        enabled: true
-        data: 8
+      title: "&9Common tags"
+  country:
+    item: 54
+    data: 0
+    amount: 1
+    slot: 16
+    displayname: "&eCountry category"
+    lore:
+      - ""
+      - "&7Click to open country category"
+      - ""
+    menu:
+      title: "&9Country tags"

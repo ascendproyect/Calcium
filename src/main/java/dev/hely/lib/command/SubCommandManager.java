@@ -1,7 +1,5 @@
 package dev.hely.lib.command;
 
-import dev.hely.hcf.events.dtc.DTCExecutor;
-import dev.hely.hcf.events.schedule.ScheduleExecutor;
 import dev.hely.lib.command.sub.SubCommandHandler;
 import dev.hely.lib.manager.Manager;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -17,10 +15,6 @@ public enum SubCommandManager implements Manager {
 
     INSTANCE;
 
-    private ScheduleExecutor scheduleExecutor;
-    private DTCExecutor dtcExecutor;
-
-
     @Override
     public void onEnable(JavaPlugin plugin) {
 
@@ -35,8 +29,6 @@ public enum SubCommandManager implements Manager {
 
     @Override
     public void onDisable(JavaPlugin plugin) {
-        this.scheduleExecutor.disable();
-        this.dtcExecutor.disable();
     }
 
     private void setupSubCommand() throws Exception {

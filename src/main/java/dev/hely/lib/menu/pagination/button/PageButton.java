@@ -25,13 +25,12 @@ public class PageButton extends Button {
     }
     @Override
     public ItemStack getButtonItem(Player player) {
-        ItemMaker itemMaker = ItemMaker.of(Material.GOLD_NUGGET);
-        if (this.hasNext(player)) {
-            itemMaker.displayName((this.mod > 0) ? "&aNext Page" : "&cPrevious Page");
-        } else {
-            itemMaker.displayName((this.mod > 0) ? "&aLast Page" : "&aFirst Page");
-        }
-        itemMaker.lore("", "&eRight click to", "&ejump to a page.", "");
+        ItemMaker itemMaker = ItemMaker.of(Material.CARPET).data((short) 7);
+        itemMaker.displayName((this.mod > 0) ? "&aNext Page" : "&cPrevious Page");
+        itemMaker.addLore("");
+        itemMaker.addLore("&eRight click to");
+        itemMaker.addLore((this.mod > 0) ? "&ego to the next page." : "&ego to the previous page.");
+        itemMaker.addLore("");
         return itemMaker.build();
     }
     @Override

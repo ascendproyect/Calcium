@@ -5,8 +5,6 @@ package dev.hely.lib.command.sub;
  * Created on 28/08/2021
  */
 import dev.hely.lib.CC;
-import dev.hely.hcf.util.JavaUtils;
-import dev.hely.hcf.util.config.Language;
 import lombok.Getter;
 import lombok.Setter;
 import org.bukkit.OfflinePlayer;
@@ -65,7 +63,6 @@ public abstract class SubCommand {
 
     protected boolean checkConsoleSender(CommandSender sender) {
         if(sender instanceof ConsoleCommandSender) {
-            sender.sendMessage(CC.translate(Language.EXECUTE_COMMAND_ONLY_PLAYER));
             return false;
         }
         return true;
@@ -73,7 +70,6 @@ public abstract class SubCommand {
 
     protected boolean checkOfflinePlayer(CommandSender sender, OfflinePlayer offlinePlayer, String name) {
         if(!offlinePlayer.hasPlayedBefore() && !offlinePlayer.isOnline()) {
-            sender.sendMessage(CC.translate(Language.OFFLINE_PLAYER.replace("%player%", name)));
             return false;
         }
         return true;
@@ -81,15 +77,6 @@ public abstract class SubCommand {
 
     protected boolean checkPlayer(CommandSender sender, Player player, String name) {
         if(player == null) {
-            sender.sendMessage(CC.translate(Language.OFFLINE_PLAYER.replace("%player%", name)));
-            return false;
-        }
-        return true;
-    }
-
-    protected boolean checkNumber(CommandSender sender, String number) {
-        if(!JavaUtils.isInt(number)) {
-            sender.sendMessage(CC.translate(Language.LANGUAGE_USE_NUMBER));
             return false;
         }
         return true;

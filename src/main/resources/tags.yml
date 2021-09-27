@@ -4,13 +4,178 @@ tags:
     data: 0
     amount: 1
     slot: 1
-    displayname: "#Hely"
-    category: "normal"
-    permission: "neon.tag.Hely"
+    displayname: "&8#&6&lHely&f "
+    category: "common"
+    permission: "neon.tag.hely"
     lore:
-      equiped:
+      equipped:
+        - "&7&m----------------------------"
+        - "&fDisplayed as&7: &f%tag_display% &e%player_name%"
         - ""
+        - "&fStatus&7: &aUnlocked"
+        - "&7You are using this tag."
+        - "&7&m----------------------------"
       equip:
+        - "&7&m----------------------------"
+        - "&fDisplayed as&7: &f%tag_display% &e%player_name%"
         - ""
+        - "&fStatus&7: &aUnlocked"
+        - "&7Right click to equip this tag."
+        - "&7&m----------------------------"
       no_perm:
+        - "&7&m----------------------------"
+        - "&fDisplayed as&7: &f%tag_display% &e%player_name%"
         - ""
+        - "&fStatus&7: &CLocked"
+        - "&7Purchase tags at store.helydev.com"
+        - "&7&m----------------------------"
+  Quantum:
+    item: 421
+    data: 0
+    amount: 1
+    slot: 2
+    displayname: "&8#&d&lQuantum&f "
+    category: "common"
+    permission: "neon.tag.quantum"
+    lore:
+      equipped:
+        - "&7&m----------------------------"
+        - "&fDisplayed as&7: &f%tag_display% &e%player_name%"
+        - ""
+        - "&fStatus&7: &aUnlocked"
+        - "&7You are using this tag."
+        - "&7&m----------------------------"
+      equip:
+        - "&7&m----------------------------"
+        - "&fDisplayed as&7: &f%tag_display% &e%player_name%"
+        - ""
+        - "&fStatus&7: &aUnlocked"
+        - "&7Right click to equip this tag."
+        - "&7&m----------------------------"
+      no_perm:
+        - "&7&m----------------------------"
+        - "&fDisplayed as&7: &f%tag_display% &e%player_name%"
+        - ""
+        - "&fStatus&7: &CLocked"
+        - "&7Purchase tags at store.helydev.com"
+        - "&7&m----------------------------"
+  Void:
+    item: 421
+    data: 0
+    amount: 1
+    slot: 3
+    displayname: "&8#&b&lVoid&f "
+    category: "common"
+    permission: "neon.tag.void"
+    lore:
+      equipped:
+        - "&7&m----------------------------"
+        - "&fDisplayed as&7: &f%tag_display% &e%player_name%"
+        - ""
+        - "&fStatus&7: &aUnlocked"
+        - "&7You are using this tag."
+        - "&7&m----------------------------"
+      equip:
+        - "&7&m----------------------------"
+        - "&fDisplayed as&7: &f%tag_display% &e%player_name%"
+        - ""
+        - "&fStatus&7: &aUnlocked"
+        - "&7Right click to equip this tag."
+        - "&7&m----------------------------"
+      no_perm:
+        - "&7&m----------------------------"
+        - "&fDisplayed as&7: &f%tag_display% &e%player_name%"
+        - ""
+        - "&fStatus&7: &CLocked"
+        - "&7Purchase tags at store.helydev.com"
+        - "&7&m----------------------------"
+  Arg:
+    item: 421
+    data: 0
+    amount: 1
+    slot: 1
+    displayname: "&8[&9&k|&bA&fR&bG&9&k|&8]&f "
+    category: "country"
+    permission: "neon.tag.argentina"
+    lore:
+      equipped:
+        - "&7&m----------------------------"
+        - "&fDisplayed as&7: &f%tag_display% &e%player_name%"
+        - ""
+        - "&fStatus&7: &aUnlocked"
+        - "&7You are using this tag."
+        - "&7&m----------------------------"
+      equip:
+        - "&7&m----------------------------"
+        - "&fDisplayed as&7: &f%tag_display% &e%player_name%"
+        - ""
+        - "&fStatus&7: &aUnlocked"
+        - "&7Right click to equip this tag."
+        - "&7&m----------------------------"
+      no_perm:
+        - "&7&m----------------------------"
+        - "&fDisplayed as&7: &f%tag_display% &e%player_name%"
+        - ""
+        - "&fStatus&7: &CLocked"
+        - "&7Purchase tags at store.helydev.com"
+        - "&7&m----------------------------"
+  Peru:
+    item: 421
+    data: 0
+    amount: 1
+    slot: 2
+    displayname: "&8[&4&k|&cP&fE&cR&4&k|&8]&f "
+    category: "country"
+    permission: "neon.tag.peru"
+    lore:
+      equipped:
+        - "&7&m----------------------------"
+        - "&fDisplayed as&7: &f%tag_display% &e%player_name%"
+        - ""
+        - "&fStatus&7: &aUnlocked"
+        - "&7You are using this tag."
+        - "&7&m----------------------------"
+      equip:
+        - "&7&m----------------------------"
+        - "&fDisplayed as&7: &f%tag_display% &e%player_name%"
+        - ""
+        - "&fStatus&7: &aUnlocked"
+        - "&7Right click to equip this tag."
+        - "&7&m----------------------------"
+      no_perm:
+        - "&7&m----------------------------"
+        - "&fDisplayed as&7: &f%tag_display% &e%player_name%"
+        - ""
+        - "&fStatus&7: &CLocked"
+        - "&7Purchase tags at store.helydev.com"
+        - "&7&m----------------------------"
+  Chl:
+    item: 421
+    data: 0
+    amount: 1
+    slot: 3
+    displayname: "&8[&c&k|&1C&fH&4L&c&k|&8]&f "
+    category: "country"
+    permission: "neon.tag.chile"
+    lore:
+      equipped:
+        - "&7&m----------------------------"
+        - "&fDisplayed as&7: &f%tag_display% &e%player_name%"
+        - ""
+        - "&fStatus&7: &aUnlocked"
+        - "&7You are using this tag."
+        - "&7&m----------------------------"
+      equip:
+        - "&7&m----------------------------"
+        - "&fDisplayed as&7: &f%tag_display% &e%player_name%"
+        - ""
+        - "&fStatus&7: &aUnlocked"
+        - "&7Right click to equip this tag."
+        - "&7&m----------------------------"
+      no_perm:
+        - "&7&m----------------------------"
+        - "&fDisplayed as&7: &f%tag_display% &e%player_name%"
+        - ""
+        - "&fStatus&7: &CLocked"
+        - "&7Purchase tags at store.helydev.com"
+        - "&7&m----------------------------"

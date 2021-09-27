@@ -7,3 +7,5 @@ target/
 *.iws
 .idea/
 
+*.log
+*.log

@@ -1,15 +1,12 @@
 package dev.hely.lib.command;
 
-import dev.hely.hcf.util.JavaUtils;
-import dev.hely.hcf.util.config.Language;
 import dev.hely.lib.CC;
+import dev.hely.tag.Neon;
 import lombok.Getter;
 import lombok.Setter;
-import org.bukkit.OfflinePlayer;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.command.defaults.BukkitCommand;
-import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -60,60 +57,20 @@ public abstract class BaseCommand extends BukkitCommand {
         this.isPlayerOnly = isPlayerOnly;
     }
 
-    protected boolean checkConsoleSender(CommandSender sender) {
-        if(sender instanceof ConsoleCommandSender) {
-            sender.sendMessage(CC.translate(Language.EXECUTE_COMMAND_ONLY_PLAYER));
-            return false;
-        }
-        return true;
-    }
-
-    protected boolean checkOfflinePlayer(CommandSender sender, OfflinePlayer offlinePlayer, String name) {
-        if(!offlinePlayer.hasPlayedBefore() && !offlinePlayer.isOnline()) {
-            sender.sendMessage(CC.translate(Language.OFFLINE_PLAYER.replace("%player%", name)));
-            return false;
-        }
-        return true;
-    }
-
-    protected boolean checkPlayer(CommandSender sender, Player player, String name) {
-        if(player == null) {
-            sender.sendMessage(CC.translate(Language.OFFLINE_PLAYER.replace("%player%", name)));
-            return false;
-        }
-        return true;
-    }
-
-    protected boolean checkNumber(CommandSender sender, String number) {
-        if(!JavaUtils.isInt(number)) {
-            sender.sendMessage(CC.translate(Language.LANGUAGE_USE_NUMBER));
-            return false;
-        }
-        return true;
-    }
-
-    protected boolean checkPermission(CommandSender sender, String permission) {
-        if(!sender.hasPermission(permission)) {
-            sender.sendMessage(CC.translate(Language.NO_PERMISSION));
-            return false;
-        }
-        return true;
-    }
-
     @Override
     public boolean execute(CommandSender sender, String label, String[] args) {
         if(isPlayerOnly() && sender instanceof ConsoleCommandSender) {
-            sender.sendMessage(CC.translate(Language.EXECUTE_COMMAND_ONLY_PLAYER));
+            sender.sendMessage(CC.translate("Command online in player"));
             return true;
         }
 
         if(this.getPermission() != null && !sender.hasPermission(this.getPermission())) {
-            sender.sendMessage(CC.translate(Language.NO_PERMISSION));
+            sender.sendMessage(CC.translate("No permission."));
             return true;
         }
 
         if(isExecuteAsync()) {
-            Tasks.async(() -> this.execute(sender, args));
+            Neon.async(() -> this.execute(sender, args));
         } else {
             this.execute(sender, args);
         }
