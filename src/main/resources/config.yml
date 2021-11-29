@@ -10,7 +10,7 @@ settings:
       password: ""
 
   selected_tag:
-    - "&aYou have successfully selected this tag"
+    - "&aYou have successfully selected this tag."
 
   menu:
     main:
