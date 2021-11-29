@@ -89,7 +89,7 @@ tags:
         - "&fStatus&7: &CLocked"
         - "&7Purchase tags at store.helydev.com"
         - "&7&m----------------------------"
-  Arg:
+  Argentina:
     item: 421
     data: 0
     amount: 1
@@ -149,7 +149,7 @@ tags:
         - "&fStatus&7: &CLocked"
         - "&7Purchase tags at store.helydev.com"
         - "&7&m----------------------------"
-  Chl:
+  Chile:
     item: 421
     data: 0
     amount: 1
