@@ -23,15 +23,15 @@ public class SettingsMenu extends Menu {
     @Override
     public Map<Integer, Button> getButtons(Player player) {
         Map<Integer, Button> button = new HashMap<>();
-        button.put(0, new EditMenu());
-        button.put(1, new EditCategoryMenu());
-        button.put(8, new Reload());
+        button.put(0, new EditButton());
+        button.put(1, new EditCategoryButton());
+        button.put(8, new ReloadButton());
 
         return button;
     }
 
 
-    private static class EditCategoryMenu extends Button {
+    private static class EditCategoryButton extends Button {
 
         @Override
         public ItemStack getButtonItem(Player player) {
@@ -44,7 +44,7 @@ public class SettingsMenu extends Menu {
         }
     }
 
-    private static class EditMenu extends Button {
+    private static class EditButton extends Button {
 
         @Override
         public ItemStack getButtonItem(Player player) {
@@ -53,11 +53,11 @@ public class SettingsMenu extends Menu {
 
         @Override
         public void clicked(Player player, int slot, ClickType clickType, int hotbarButton) {
-            new dev.hely.tag.menu.edit.EditMenu().openMenu(player);
+            new EditMenu().openMenu(player);
         }
     }
 
-    private static class Reload extends Button {
+    private static class ReloadButton extends Button {
 
         @Override
         public ItemStack getButtonItem(Player player) {
