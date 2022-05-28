@@ -23,7 +23,7 @@ public class TagCommand extends BaseCommand {
         if(args.length == 0){
             new TagMenu().openMenu(player);
         }else if(args.length == 1){
-            if(args[0].equalsIgnoreCase("settings")){
+            if(args[0].equalsIgnoreCase("settings") && player.hasPermission("neon.manager")){
                 new SettingsMenu().openMenu(player);
             }else if(args[0].equalsIgnoreCase("info")){
                 player.sendMessage(CC.translate("&7"));
