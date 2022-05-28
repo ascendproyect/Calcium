@@ -4,6 +4,7 @@ import dev.hely.lib.maker.ItemMaker;
 import dev.hely.lib.menu.Menu;
 import dev.hely.lib.menu.button.Button;
 import dev.hely.tag.Neon;
+import dev.hely.tag.configuration.Configuration;
 import lombok.AllArgsConstructor;
 import org.bukkit.Material;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -35,7 +36,7 @@ public class FillMenu extends Menu {
         private final int data;
         @Override
         public ItemStack getButtonItem(Player player) {
-            if(Neon.getPlugin().getConfig().getInt("settings.menu.main.raw") == data){
+            if(Configuration.Menu_FillData == data){
                 return ItemMaker.of(Material.STAINED_GLASS_PANE).displayName("&aselected").data((short) data).build();
             }else{
                 return ItemMaker.of(Material.STAINED_GLASS_PANE).displayName("&cUnselected").data((short) data).build();
@@ -44,10 +45,10 @@ public class FillMenu extends Menu {
 
         @Override
         public void clicked(Player player, int slot, ClickType clickType, int hotbarButton) {
-            if(Neon.getPlugin().getConfig().getInt("settings.menu.main.fill.data") != data){
+            if(Configuration.Menu_FillData != data){
                 new EditMenu().openMenu(player);
                 FileConfiguration config = Neon.getPlugin().getConfig();
-                config.set("settings.menu.main.fill.data", data);
+                config.set("settings.menu.fill.data", data);
                 Neon.getPlugin().saveConfig();
             }
         }

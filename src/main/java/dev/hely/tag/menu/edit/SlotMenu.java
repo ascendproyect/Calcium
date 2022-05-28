@@ -4,6 +4,7 @@ import dev.hely.lib.maker.ItemMaker;
 import dev.hely.lib.menu.Menu;
 import dev.hely.lib.menu.button.Button;
 import dev.hely.tag.Neon;
+import dev.hely.tag.configuration.Configuration;
 import dev.hely.tag.module.category.Category;
 import lombok.AllArgsConstructor;
 import org.bukkit.Material;
@@ -30,7 +31,7 @@ public class SlotMenu extends Menu {
 
     @Override
     public int getSize() {
-        return Neon.getPlugin().getConfig().getInt("settings.menu.main.raw") * 9;
+        return Configuration.Menu_Raw * 9;
     }
 
 

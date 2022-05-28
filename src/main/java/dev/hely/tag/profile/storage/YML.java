@@ -7,20 +7,26 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
-public class YML {
+public class YML implements StorageHook {
 
     private static Map<UUID, String> tag;
     public YML(){
-        this.tag = new HashMap<>();
+        tag = new HashMap<>();
         this.onLoad();
     }
 
-
-    public static Map<UUID, String> getTag() {
+    public Map<UUID, String> getTag() {
         return tag;
     }
 
-    public static void setTag(UUID uuid, String tags) {
+    @Override
+    public String getTag(UUID player) {
+        if(getTag().containsKey(player)) return getTag().get(player);
+        return "";
+    }
+
+    @Override
+    public void setTag(UUID uuid, String tags) {
         tag.put(uuid, tags);
     }
 
@@ -34,7 +40,7 @@ public class YML {
 
     public void onSave(){
         FileConfiguration config = Neon.getPlugin().getProfileConfig().getConfig();
-        for (Map.Entry<UUID, String> entry : this.getTag().entrySet()) {
+        for (Map.Entry<UUID, String> entry : getTag().entrySet()) {
             config.set("profile." + entry.getKey().toString() + ".tag", entry.getValue());
         }
         Neon.getPlugin().getProfileConfig().save();

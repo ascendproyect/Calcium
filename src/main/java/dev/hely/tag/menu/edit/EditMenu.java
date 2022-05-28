@@ -5,6 +5,7 @@ import dev.hely.lib.maker.ItemMaker;
 import dev.hely.lib.menu.Menu;
 import dev.hely.lib.menu.button.Button;
 import dev.hely.tag.Neon;
+import dev.hely.tag.configuration.Configuration;
 import org.bukkit.Material;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
@@ -65,7 +66,7 @@ public class EditMenu extends Menu implements Listener{
             }
             if(edit.get(player.getUniqueId()).equalsIgnoreCase("main")){
                 FileConfiguration config = Neon.getPlugin().getConfig();
-                config.set("settings.menu.main.title", event.getMessage());
+                config.set("settings.menu.title", event.getMessage());
                 Neon.getPlugin().saveConfig();
                 edit.remove(player.getUniqueId());
                 new EditMenu().openMenu(player);
@@ -107,7 +108,7 @@ public class EditMenu extends Menu implements Listener{
 
         @Override
         public ItemStack getButtonItem(Player player) {
-            if(Neon.getPlugin().getConfig().getBoolean("settings.menu.main.fill.enabled")){
+            if(Configuration.Menu_Fill){
                 return ItemMaker.of(Material.INK_SACK).displayName("&eFill").data((short) 10).build();
             }else{
                 return ItemMaker.of(Material.INK_SACK).displayName("&eFill").data((short) 8).build();
@@ -117,10 +118,10 @@ public class EditMenu extends Menu implements Listener{
         @Override
         public void clicked(Player player, int slot, ClickType clickType, int hotbarButton) {
             FileConfiguration config = Neon.getPlugin().getConfig();
-            if(Neon.getPlugin().getConfig().getBoolean("settings.menu.main.fill.enabled")){
-                config.set("settings.menu.main.fill.enabled", false);
+            if(Configuration.Menu_Fill){
+                config.set("settings.menu.fill.enabled", false);
             }else{
-                config.set("settings.menu.main.fill.enabled", true);
+                config.set("settings.menu.fill.enabled", true);
             }
             Neon.getPlugin().saveConfig();
             new EditMenu().openMenu(player);
@@ -132,7 +133,7 @@ public class EditMenu extends Menu implements Listener{
         @Override
         public ItemStack getButtonItem(Player player) {
             return ItemMaker.of(Material.STAINED_GLASS_PANE)
-                    .data((short) Neon.getPlugin().getConfig().getInt("settings.menu.main.fill.data")).displayName("&7")
+                    .data((short) Configuration.Menu_FillData).displayName("&7")
                     .build();
         }
 

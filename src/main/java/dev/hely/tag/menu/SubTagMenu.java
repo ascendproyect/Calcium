@@ -5,6 +5,7 @@ import dev.hely.lib.maker.ItemMaker;
 import dev.hely.lib.menu.button.Button;
 import dev.hely.lib.menu.pagination.PaginatedMenu;
 import dev.hely.tag.Neon;
+import dev.hely.tag.configuration.Configuration;
 import dev.hely.tag.module.category.Category;
 import dev.hely.tag.module.tag.Tags;
 import lombok.AllArgsConstructor;
@@ -51,7 +52,7 @@ public class SubTagMenu extends PaginatedMenu {
         public ItemStack getButtonItem(Player player) {
             List<String> lore = new ArrayList<>();
             if(player.hasPermission(tags.getPerm())
-                    && Neon.getPlugin().getProfileManager().getTag(player).equalsIgnoreCase(tags.getDisplayname())){
+                    && Neon.getPlugin().getStorage().getTag(player.getUniqueId()).equalsIgnoreCase(tags.getDisplayname())){
                 for(String l:tags.getEquiped()){
                     lore.add(l.replace("%player_name%", player.getName())
                             .replace("%tag_display%", tags.getDisplayname()));
@@ -75,10 +76,10 @@ public class SubTagMenu extends PaginatedMenu {
         @Override
         public void clicked(Player player, int slot, ClickType clickType, int hotbarButton) {
             if(player.hasPermission(tags.getPerm())){
-                Neon.getPlugin().getProfileManager().setTag(player.getUniqueId(), tags.getDisplayname());
+                Neon.getPlugin().getStorage().setTag(player.getUniqueId(), tags.getDisplayname());
                 player.closeInventory();
-                for(String m:Neon.getPlugin().getConfig().getStringList("settings.selected_tag")){
-                    player.sendMessage(CC.translate(m));
+                for(String msg: Configuration.Select_Tag){
+                    player.sendMessage(CC.translate(msg));
                 }
             }
         }

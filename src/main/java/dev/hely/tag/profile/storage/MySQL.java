@@ -7,7 +7,7 @@ import org.bukkit.entity.Player;
 import java.sql.*;
 import java.util.UUID;
 
-public class MySQL {
+public class MySQL implements StorageHook {
     public static Connection connection;
 
     public static void connect(){
@@ -79,10 +79,11 @@ public class MySQL {
         }
     }
 
-    public static String getTag(Player player) {
+    @Override
+    public String getTag(UUID player) {
         try {
             PreparedStatement ps = MySQL.connection.prepareStatement("SELECT Tag FROM Neon WHERE UUID =?");
-            ps.setString(1, player.getUniqueId().toString());
+            ps.setString(1, player.toString());
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
                 return rs.getString("Tag");
@@ -93,7 +94,8 @@ public class MySQL {
         return null;
     }
 
-    public static void setTag(UUID player, String tag) {
+    @Override
+    public void setTag(UUID player, String tag) {
         try {
             PreparedStatement ps = MySQL.connection.prepareStatement("UPDATE Neon SET Tag =? WHERE UUID=?");
             ps.setString(1, tag);

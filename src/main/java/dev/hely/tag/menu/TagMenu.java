@@ -4,6 +4,7 @@ import dev.hely.lib.maker.ItemMaker;
 import dev.hely.lib.menu.Menu;
 import dev.hely.lib.menu.button.Button;
 import dev.hely.tag.Neon;
+import dev.hely.tag.configuration.Configuration;
 import dev.hely.tag.module.category.Category;
 import lombok.AllArgsConstructor;
 import org.bukkit.Material;
@@ -18,18 +19,18 @@ public class TagMenu extends Menu {
 
     @Override
     public String getTitle(Player player) {
-        return Neon.getPlugin().getConfig().getString("settings.menu.main.title");
+        return Configuration.Menu_Title;
     }
 
     @Override
     public int getSize() {
-        return Neon.getPlugin().getConfig().getInt("settings.menu.main.raw") * 9;
+        return Configuration.Menu_Raw * 9;
     }
 
     @Override
     public Map<Integer, Button> getButtons(Player player) {
         Map<Integer, Button> button = new HashMap<>();
-        if(Neon.getPlugin().getConfig().getBoolean("settings.menu.main.fill.enabled")){
+        if(Configuration.Menu_Fill){
             for (int i = 0; i < getSize(); ++i) {
                 button.put(i, new SeparatorButton());
             }
@@ -63,7 +64,7 @@ public class TagMenu extends Menu {
 
         @Override
         public ItemStack getButtonItem(Player player) {
-            return ItemMaker.of(Material.STAINED_GLASS_PANE).data((short) Neon.getPlugin().getConfig().getInt("settings.menu.main.fill.data")).displayName("&7")
+            return ItemMaker.of(Material.STAINED_GLASS_PANE).data((short) Configuration.Menu_FillData).displayName("&7")
                     .build();
         }
 

@@ -13,12 +13,11 @@ settings:
     - "&aYou have successfully selected this tag."
 
   menu:
-    main:
-      title: "&9&lNeon tags"
-      raw: 3
-      fill:
-        enabled: true
-        data: 15
+    title: "&9&lNeon tags"
+    raw: 3
+    fill:
+      enabled: true
+      data: 15
 
 categorys:
   common:

@@ -22,34 +22,6 @@ public class ProfileManager {
         }
     }
 
-
-    public String getTag(Player player){
-
-        if(Neon.getPlugin().getConfig().getString("settings.storage.drive").equalsIgnoreCase("YML")) {
-
-            if(YML.getTag().containsKey(player.getUniqueId())) {
-                return YML.getTag().get(player.getUniqueId());
-            }
-            return "";
-        }else if(Neon.getPlugin().getConfig().getString("settings.storage.drive").equalsIgnoreCase("MYSQL")){
-            return MySQL.getTag(player);
-        }
-        return "Contact Developers";
-    }
-
-    public void setTag(UUID player, String tag){
-
-        if(Neon.getPlugin().getConfig().getString("settings.storage.drive").equalsIgnoreCase("YML")){
-            YML.setTag(player, tag);
-        }else
-
-        if(Neon.getPlugin().getConfig().getString("settings.storage.drive").equalsIgnoreCase("MYSQL")){
-            MySQL.setTag(player, tag);
-        }else {
-            Bukkit.getConsoleSender().sendMessage("Contact Developers");
-        }
-    }
-
     public void onDisable(){
 
         if(Neon.getPlugin().getConfig().getString("settings.storage.drive").equalsIgnoreCase("YML")){
