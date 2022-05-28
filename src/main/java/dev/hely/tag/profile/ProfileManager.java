@@ -12,14 +12,7 @@ public class ProfileManager {
 
 
     public ProfileManager(){
-        if(Neon.getPlugin().getConfig().getString("settings.storage.drive").equalsIgnoreCase("YML")){
-            new YML();
-        }
-
-        if(Neon.getPlugin().getConfig().getString("settings.storage.drive").equalsIgnoreCase("MYSQL")){
-            MySQL.connect();
-            MySQL.createDatabase();
-        }
+        if(Neon.getPlugin().getConfig().getString("settings.storage.drive").equalsIgnoreCase("YML")) new YML();
     }
 
     public void onDisable(){
