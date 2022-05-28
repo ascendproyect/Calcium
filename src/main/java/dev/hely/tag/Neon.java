@@ -45,8 +45,8 @@ public class Neon extends JavaPlugin {
             this.onListener();
             managerList.forEach(manager -> manager.onEnable(this));
             this.moduleManager = new ModuleManager();
-            this.profileManager = new ProfileManager();
             this.onStorage();
+            this.profileManager = new ProfileManager();
 
             if (Bukkit.getPluginManager().isPluginEnabled("PlaceholderAPI")) new PlaceHolderAPIExpansion().register();
     }

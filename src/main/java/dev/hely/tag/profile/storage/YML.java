@@ -10,12 +10,12 @@ import java.util.UUID;
 public class YML implements StorageHook {
 
     private static Map<UUID, String> tag;
+
     public YML(){
-        tag = new HashMap<>();
-        this.onLoad();
+        this.tag = new HashMap<>();
     }
 
-    public Map<UUID, String> getTag() {
+    public static Map<UUID, String> getTag() {
         return tag;
     }
 
@@ -29,21 +29,4 @@ public class YML implements StorageHook {
     public void setTag(UUID uuid, String tags) {
         tag.put(uuid, tags);
     }
-
-    public void onLoad(){
-        for(String player: Neon.getPlugin().getProfileConfig().getConfig().getConfigurationSection("profile").getKeys(false)){
-            UUID uuid = UUID.fromString(player);
-            String tags = Neon.getPlugin().getProfileConfig().getConfig().getString("profile." + player + ".tag");
-            this.setTag(uuid, tags);
-        }
-    }
-
-    public void onSave(){
-        FileConfiguration config = Neon.getPlugin().getProfileConfig().getConfig();
-        for (Map.Entry<UUID, String> entry : getTag().entrySet()) {
-            config.set("profile." + entry.getKey().toString() + ".tag", entry.getValue());
-        }
-        Neon.getPlugin().getProfileConfig().save();
-    }
-
 }
