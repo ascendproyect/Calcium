@@ -1,6 +1,12 @@
 package dev.hely.tag;
 
 import com.google.common.collect.ImmutableList;
+import com.mongodb.MongoClient;
+import com.mongodb.MongoClientOptions;
+import com.mongodb.MongoCredential;
+import com.mongodb.ServerAddress;
+import com.mongodb.client.MongoCollection;
+import com.mongodb.client.MongoDatabase;
 import dev.hely.lib.command.CommandManager;
 import dev.hely.lib.configuration.Config;
 import dev.hely.lib.manager.Manager;
@@ -9,17 +15,21 @@ import dev.hely.tag.configuration.Configuration;
 import dev.hely.tag.menu.edit.EditMenu;
 import dev.hely.tag.module.ModuleManager;
 import dev.hely.tag.profile.ProfileManager;
+import dev.hely.tag.profile.storage.Mongo;
 import dev.hely.tag.profile.storage.MySQL;
-import dev.hely.tag.profile.storage.StorageHook;
+import dev.hely.tag.profile.StorageHook;
 import dev.hely.tag.profile.storage.YML;
+import org.bson.Document;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.List;
+import java.util.UUID;
 
 public class Neon extends JavaPlugin {
 
+    public static MongoCollection<Document> collection;
     private static Neon plugin;
     private List<Manager> managerList;
     private Config tags;
@@ -37,18 +47,18 @@ public class Neon extends JavaPlugin {
     @Override
     public void onEnable() {
         plugin = this;
-            this.saveDefaultConfig();
-            this.saveConfig();
-            this.reloadConfig();
-            Configuration.loadConfig();
-            this.onConfig();
-            this.onListener();
-            managerList.forEach(manager -> manager.onEnable(this));
-            this.moduleManager = new ModuleManager();
-            this.onStorage();
-            this.profileManager = new ProfileManager();
+        this.saveDefaultConfig();
+        this.saveConfig();
+        this.reloadConfig();
+        Configuration.loadConfig();
+        this.onConfig();
+        this.onListener();
+        managerList.forEach(manager -> manager.onEnable(this));
+        this.moduleManager = new ModuleManager();
+        this.onStorage();
+        this.profileManager = new ProfileManager();
 
-            if (Bukkit.getPluginManager().isPluginEnabled("PlaceholderAPI")) new PlaceHolderAPIExpansion().register();
+        if (Bukkit.getPluginManager().isPluginEnabled("PlaceholderAPI")) new PlaceHolderAPIExpansion().register();
     }
 
     @Override
@@ -83,10 +93,6 @@ public class Neon extends JavaPlugin {
         return profile;
     }
 
-    public ProfileManager getProfileManager(){
-        return profileManager;
-    }
-
     public ModuleManager getModuleManager(){
         return moduleManager;
     }
@@ -98,14 +104,37 @@ public class Neon extends JavaPlugin {
     }
 
     public void onStorage(){
-        if(Neon.getPlugin().getConfig().getString("settings.storage.drive").equalsIgnoreCase("YML")){
-            this.storageHook = new YML();
-        }
+        switch (plugin.getConfig().getString("settings.storage.drive")){
+            case "MONGO":
+                final MongoDatabase mongoDatabase;
 
-        if(Neon.getPlugin().getConfig().getString("settings.storage.drive").equalsIgnoreCase("MYSQL")){
-            MySQL.connect();
-            MySQL.createDatabase();
-            this.storageHook = new MySQL();
+                if (plugin.getConfig().getBoolean("settings.storage.mongo.auth.enabled")) {
+                    ServerAddress serverAddress = new ServerAddress(plugin.getConfig().getString("settings.storage.mongo.address"), plugin.getConfig().getInt("settings.storage.mongo.port"));
+                    MongoCredential credential = MongoCredential.createCredential(plugin.getConfig().getString("settings.storage.mongo.auth.user"),
+                            plugin.getConfig().getString("settings.storage.mongo.database_name"),
+                            plugin.getConfig().getString("settings.storage.mongo.auth.password").toCharArray());
+
+                    mongoDatabase = new MongoClient(serverAddress, credential, MongoClientOptions.builder().build()).getDatabase(plugin.getConfig().getString("settings.storage.mongo.database_name"));
+                } else {
+                    mongoDatabase = new MongoClient(plugin.getConfig().getString("settings.storage.mongo.address"), plugin.getConfig().getInt("settings.storage.mongo.port")).getDatabase(plugin.getConfig().getString("settings.storage.mongo.database_name"));
+                }
+
+                collection = mongoDatabase.getCollection("user");
+                this.storageHook = new Mongo();
+                break;
+            case "MYSQL":
+                MySQL.connect();
+                MySQL.createDatabase();
+                this.storageHook = new MySQL();
+                break;
+            default:
+                this.storageHook = new YML();
+                for(String player: Neon.getPlugin().getProfileConfig().getConfig().getConfigurationSection("profile").getKeys(false)){
+                    UUID uuid = UUID.fromString(player);
+                    String tags = Neon.getPlugin().getProfileConfig().getConfig().getString("profile." + player + ".tag");
+                    Neon.getPlugin().getStorage().setTag(uuid, tags);
+                }
+                break;
         }
     }
 

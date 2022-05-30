@@ -1,6 +1,7 @@
 package dev.hely.tag.profile.storage;
 
 import dev.hely.tag.Neon;
+import dev.hely.tag.profile.StorageHook;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 

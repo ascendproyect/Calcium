@@ -1,7 +1,6 @@
 package dev.hely.tag.profile.storage;
 
-import dev.hely.tag.Neon;
-import org.bukkit.configuration.file.FileConfiguration;
+import dev.hely.tag.profile.StorageHook;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -12,7 +11,7 @@ public class YML implements StorageHook {
     private static Map<UUID, String> tag;
 
     public YML(){
-        this.tag = new HashMap<>();
+        tag = new HashMap<>();
     }
 
     public static Map<UUID, String> getTag() {

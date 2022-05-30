@@ -21,7 +21,7 @@ public class EditCatMenu extends Menu {
 
     @Override
     public String getTitle(Player player) {
-        return "&7Category edit";
+        return "&9Category edit";
     }
 
     @Override
@@ -41,7 +41,8 @@ public class EditCatMenu extends Menu {
 
         @Override
         public ItemStack getButtonItem(Player player) {
-            return ItemMaker.of(Material.SIGN).displayName("&eDisplayname").build();
+            return ItemMaker.of(Material.SIGN).displayName("&eSet displayname")
+                    .lore("", "&7Displayname: " + category.getDisplayname(), "").build();
         }
 
         @Override
@@ -62,7 +63,8 @@ public class EditCatMenu extends Menu {
         @Override
         public ItemStack getButtonItem(Player player) {
             return ItemMaker.of(category.getItem().getType())
-                    .data(category.getItem().getData().getData()).displayName("").build();
+                    .data(category.getItem().getData().getData()).displayName("&eSet item")
+                    .lore("", "&7Click to change item", "").build();
         }
 
         @Override
@@ -79,7 +81,8 @@ public class EditCatMenu extends Menu {
 
         @Override
         public ItemStack getButtonItem(Player player) {
-            return ItemMaker.of(Material.ITEM_FRAME).displayName("&eSlot").build();
+            return ItemMaker.of(Material.ITEM_FRAME).displayName("&eSet slot")
+                    .lore("", "&7Slot: " + category.getSlot(), "").build();
         }
 
         @Override
@@ -95,7 +98,8 @@ public class EditCatMenu extends Menu {
 
         @Override
         public ItemStack getButtonItem(Player player) {
-            return ItemMaker.of(Material.SIGN).displayName("&eTitle").build();
+            return ItemMaker.of(Material.SIGN).displayName("&eSet title")
+                    .lore("", "&7Title: " + category.getTitle(), "").build();
         }
 
         @Override

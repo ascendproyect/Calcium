@@ -26,7 +26,7 @@ public class EditMenu extends Menu implements Listener{
 
     @Override
     public String getTitle(Player player) {
-        return "&7Edit menu";
+        return "&9Edit menu";
     }
 
     @Override
@@ -43,7 +43,8 @@ public class EditMenu extends Menu implements Listener{
 
         @Override
         public ItemStack getButtonItem(Player player) {
-            return ItemMaker.of(Material.SIGN).displayName("&eTitle").build();
+            return ItemMaker.of(Material.SIGN).displayName("&eSet title")
+                    .lore("", "&7Title: " + Configuration.Menu_Title, "").build();
         }
 
         @Override
@@ -68,17 +69,17 @@ public class EditMenu extends Menu implements Listener{
                 FileConfiguration config = Neon.getPlugin().getConfig();
                 config.set("settings.menu.title", event.getMessage());
                 Neon.getPlugin().saveConfig();
+                Neon.getPlugin().onReload();
                 edit.remove(player.getUniqueId());
                 new EditMenu().openMenu(player);
-            }else
-            if(edit.get(player.getUniqueId()).equalsIgnoreCase("category")){
+            }else if(edit.get(player.getUniqueId()).equalsIgnoreCase("category")){
                 FileConfiguration config = Neon.getPlugin().getConfig();
                 config.set("categorys."+category.get(player.getUniqueId())+".menu.title", event.getMessage());
                 Neon.getPlugin().saveConfig();
                 Neon.getPlugin().getModuleManager().getCategory().onLoad();
                 edit.remove(player.getUniqueId());
                 category.remove(player.getUniqueId());
-                new EditMenu().openMenu(player);
+                player.sendMessage(CC.translate("&aMenu title changed successfully"));
             }else if(edit.get(player.getUniqueId()).equalsIgnoreCase("categoryname")){
                 FileConfiguration config = Neon.getPlugin().getConfig();
                 config.set("categorys."+category.get(player.getUniqueId())+".displayname", event.getMessage());
@@ -86,7 +87,7 @@ public class EditMenu extends Menu implements Listener{
                 Neon.getPlugin().getModuleManager().getCategory().onLoad();
                 edit.remove(player.getUniqueId());
                 category.remove(player.getUniqueId());
-                new EditMenu().openMenu(player);
+                player.sendMessage(CC.translate("&aThe name of the category was changed correctly"));
             }
         }
     }
@@ -95,7 +96,8 @@ public class EditMenu extends Menu implements Listener{
 
         @Override
         public ItemStack getButtonItem(Player player) {
-            return ItemMaker.of(Material.ITEM_FRAME).displayName("&eSize").build();
+            return ItemMaker.of(Material.ITEM_FRAME).displayName("&eSet size")
+                    .lore("", "&7Size: " + Configuration.Menu_Raw * 9, "").build();
         }
 
         @Override
@@ -109,9 +111,11 @@ public class EditMenu extends Menu implements Listener{
         @Override
         public ItemStack getButtonItem(Player player) {
             if(Configuration.Menu_Fill){
-                return ItemMaker.of(Material.INK_SACK).displayName("&eFill").data((short) 10).build();
+                return ItemMaker.of(Material.INK_SACK).displayName("&eFill&7: &aEnabled")
+                        .lore("", "&7Click to &cDisabled", "").data((short) 10).build();
             }else{
-                return ItemMaker.of(Material.INK_SACK).displayName("&eFill").data((short) 8).build();
+                return ItemMaker.of(Material.INK_SACK).displayName("&eFill&7: &cDisabled")
+                        .lore("", "&7Click to &aEnabled", "").data((short) 8).build();
             }
         }
 
@@ -124,6 +128,7 @@ public class EditMenu extends Menu implements Listener{
                 config.set("settings.menu.fill.enabled", true);
             }
             Neon.getPlugin().saveConfig();
+            Neon.getPlugin().onReload();
             new EditMenu().openMenu(player);
         }
     }
@@ -133,7 +138,8 @@ public class EditMenu extends Menu implements Listener{
         @Override
         public ItemStack getButtonItem(Player player) {
             return ItemMaker.of(Material.STAINED_GLASS_PANE)
-                    .data((short) Configuration.Menu_FillData).displayName("&7")
+                    .data((short) Configuration.Menu_FillData).displayName("&eFill color")
+                    .lore("", "&7Click to change color fill", "")
                     .build();
         }
 
@@ -165,6 +171,7 @@ public class EditMenu extends Menu implements Listener{
                 Neon.getPlugin().saveConfig();
                 Neon.getPlugin().getModuleManager().getCategory().onLoad();
                 edit.remove(player.getUniqueId());
+                player.sendMessage(CC.translate("&aCategory item changed successfully"));
             }
         }
     }

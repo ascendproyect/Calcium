@@ -1,6 +1,15 @@
 settings:
   storage:
-    drive: "YML"
+    drive: "" # MYSQL, MONGO
+
+    mongo:
+      address: "127.0.0.1"
+      port: 27017
+      database_name: "Neon"
+      auth:
+        enabled: false
+        user: "admin"
+        password: ""
 
     mysql:
       host: ""

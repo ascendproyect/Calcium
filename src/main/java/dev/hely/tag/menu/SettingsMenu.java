@@ -17,7 +17,7 @@ import java.util.Map;
 public class SettingsMenu extends Menu {
     @Override
     public String getTitle(Player player) {
-        return "&7Neon Settings";
+        return "&9Neon Settings";
     }
 
     @Override
@@ -35,7 +35,8 @@ public class SettingsMenu extends Menu {
 
         @Override
         public ItemStack getButtonItem(Player player) {
-            return ItemMaker.of(Material.BOOK_AND_QUILL).displayName("&eEditing category").build();
+            return ItemMaker.of(Material.BOOK_AND_QUILL).displayName("&9Editing category")
+                    .lore("", "&7Click to edit the category", "").build();
         }
 
         @Override
@@ -48,7 +49,8 @@ public class SettingsMenu extends Menu {
 
         @Override
         public ItemStack getButtonItem(Player player) {
-            return ItemMaker.of(Material.BOOK_AND_QUILL).displayName("&eEditing menu").build();
+            return ItemMaker.of(Material.BOOK_AND_QUILL).displayName("&9Editing menu")
+                    .lore("", "&7Click to edit menu", "").build();
         }
 
         @Override
@@ -61,7 +63,8 @@ public class SettingsMenu extends Menu {
 
         @Override
         public ItemStack getButtonItem(Player player) {
-            return ItemMaker.of(Material.REDSTONE_TORCH_ON).displayName("&4Reload").build();
+            return ItemMaker.of(Material.REDSTONE_TORCH_ON).displayName("&4Reload")
+                    .lore("", "&7Click to reload plugin", "").build();
         }
 
         @Override

@@ -50,7 +50,7 @@ public class SlotMenu extends Menu {
         private final Category category;
         @Override
         public ItemStack getButtonItem(Player player) {
-            if(Neon.getPlugin().getConfig().getInt("categorys."+category.getName()+".slot") == S){
+            if(Neon.getPlugin().getConfig().getInt("categorys."+category.getName()+".slot") - 1 == S){
                 return ItemMaker.of(Material.STAINED_GLASS_PANE).displayName("&aselected").data((short) 5).build();
             }else{
                 return ItemMaker.of(Material.STAINED_GLASS_PANE).displayName("&cUnselected").data((short) 15).build();
@@ -59,7 +59,7 @@ public class SlotMenu extends Menu {
 
         @Override
         public void clicked(Player player, int slot, ClickType clickType, int hotbarButton) {
-            if(Neon.getPlugin().getConfig().getInt("categorys."+category.getName()+".slot") != S){
+            if(Neon.getPlugin().getConfig().getInt("categorys."+category.getName()+".slot") - 1 != S){
                 FileConfiguration config = Neon.getPlugin().getConfig();
                 config.set("categorys."+category.getName()+".slot", S+1);
                 Neon.getPlugin().saveConfig();

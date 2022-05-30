@@ -7,7 +7,9 @@ import dev.hely.tag.Neon;
 import dev.hely.tag.configuration.Configuration;
 import dev.hely.tag.module.category.Category;
 import lombok.AllArgsConstructor;
+import org.bukkit.Bukkit;
 import org.bukkit.Material;
+import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.ClickType;
 import org.bukkit.inventory.ItemStack;
@@ -27,6 +29,14 @@ public class TagMenu extends Menu {
         return Configuration.Menu_Raw * 9;
     }
 
+    public void onOpen(Player player){
+        try{
+            player.playSound(player.getLocation(),  Sound.CHEST_OPEN, 2, 2);
+        }catch (Exception e){
+            Bukkit.getLogger().warning("An error occurred while trying to produce a sound");
+        }
+    }
+
     @Override
     public Map<Integer, Button> getButtons(Player player) {
         Map<Integer, Button> button = new HashMap<>();
@@ -36,9 +46,7 @@ public class TagMenu extends Menu {
             }
         }
 
-        Neon.getPlugin().getModuleManager().getCategory().getCategory().forEach(category -> {
-            button.put(category.getSlot() - 1, new CategoryButton(category));
-        });
+        Neon.getPlugin().getModuleManager().getCategory().getCategory().forEach(category -> button.put(category.getSlot() - 1, new CategoryButton(category)));
         return button;
     }
 

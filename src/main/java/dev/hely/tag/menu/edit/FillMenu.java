@@ -46,10 +46,11 @@ public class FillMenu extends Menu {
         @Override
         public void clicked(Player player, int slot, ClickType clickType, int hotbarButton) {
             if(Configuration.Menu_FillData != data){
-                new EditMenu().openMenu(player);
                 FileConfiguration config = Neon.getPlugin().getConfig();
                 config.set("settings.menu.fill.data", data);
                 Neon.getPlugin().saveConfig();
+                Neon.getPlugin().onReload();
+                new EditMenu().openMenu(player);
             }
         }
     }

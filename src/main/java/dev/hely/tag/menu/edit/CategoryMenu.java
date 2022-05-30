@@ -19,7 +19,7 @@ public class CategoryMenu extends Menu {
 
     @Override
     public String getTitle(Player player) {
-        return "&7Category edit";
+        return "&9Category edit";
     }
 
     @Override

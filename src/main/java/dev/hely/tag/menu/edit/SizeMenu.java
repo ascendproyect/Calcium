@@ -45,10 +45,11 @@ public class SizeMenu extends Menu {
         @Override
         public void clicked(Player player, int slot, ClickType clickType, int hotbarButton) {
             if(Configuration.Menu_Raw != (raw + 1)){
-                new EditMenu().openMenu(player);
                 FileConfiguration config = Neon.getPlugin().getConfig();
                 config.set("settings.menu.raw", (raw + 1));
                 Neon.getPlugin().saveConfig();
+                Neon.getPlugin().onReload();
+                new EditMenu().openMenu(player);
             }
         }
     }
