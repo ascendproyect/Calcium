@@ -52,7 +52,7 @@ public class SubTagMenu extends PaginatedMenu {
         public ItemStack getButtonItem(Player player) {
             List<String> lore = new ArrayList<>();
             if(player.hasPermission(tags.getPerm())
-                    && Neon.getPlugin().getStorage().getTag(player.getUniqueId()).equalsIgnoreCase(tags.getDisplayname())){
+                    && Neon.getPlugin().getProfileManager().getStorage().getTag(player.getUniqueId()).equalsIgnoreCase(tags.getDisplayname())){
                 for(String l:tags.getEquiped()){
                     lore.add(l.replace("%player_name%", player.getName())
                             .replace("%tag_display%", tags.getDisplayname()));
@@ -76,7 +76,7 @@ public class SubTagMenu extends PaginatedMenu {
         @Override
         public void clicked(Player player, int slot, ClickType clickType, int hotbarButton) {
             if(player.hasPermission(tags.getPerm())){
-                Neon.getPlugin().getStorage().setTag(player.getUniqueId(), tags.getDisplayname());
+                Neon.getPlugin().getProfileManager().getStorage().setTag(player.getUniqueId(), tags.getDisplayname());
                 player.closeInventory();
                 for(String msg: Configuration.Select_Tag){
                     player.sendMessage(CC.translate(msg));

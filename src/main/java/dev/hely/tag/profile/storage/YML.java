@@ -5,10 +5,11 @@ import dev.hely.tag.profile.StorageHook;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class YML implements StorageHook {
 
-    private static Map<UUID, String> tag;
+    private static Map<UUID, String> tag = new ConcurrentHashMap<>();
 
     public YML(){
         tag = new HashMap<>();

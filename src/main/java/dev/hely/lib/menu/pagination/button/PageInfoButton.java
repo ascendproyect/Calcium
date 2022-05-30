@@ -22,13 +22,13 @@ public class PageInfoButton extends Button {
     public ItemStack getButtonItem(Player player) {
         return ItemMaker.of(Material.BOOK).displayName("&9Player Info")
                 .lore("",
-                "&fCurrent tag&7: " + Neon.getPlugin().getStorage().getTag(player.getUniqueId()) + "&e " + player.getName(),
+                "&fCurrent tag&7: " + Neon.getPlugin().getProfileManager().getStorage().getTag(player.getUniqueId()) + "&e " + player.getName(),
                 "", "&7(Left-Click) &cHere to remove tag", "").build();
     }
     @Override
     public void clicked(Player player, ClickType clickType) {
         if (clickType == ClickType.LEFT) {
-            Neon.getPlugin().getStorage().setTag(player.getUniqueId(), "");
+            Neon.getPlugin().getProfileManager().getStorage().setTag(player.getUniqueId(), "");
             player.closeInventory();
         }
     }

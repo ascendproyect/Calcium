@@ -22,7 +22,7 @@ public class PlaceHolderAPIExpansion extends PlaceholderExpansion {
     @Override
     public String onPlaceholderRequest(Player player, String identifier) {
         if(identifier.equalsIgnoreCase("_player_tag")){
-            return Neon.getPlugin().getStorage().getTag(player.getUniqueId());
+            return Neon.getPlugin().getProfileManager().getStorage().getTag(player.getUniqueId());
         }
         return null;
     }
