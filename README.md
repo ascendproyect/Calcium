@@ -35,4 +35,4 @@ Be sure to implement the `Neon-Tag.jar` as a dependency in your plugin, then you
 
 --------
 
-:copyright: __This product is open source code, however you do NOT have rights to resell these products in any way to third parties. If you are going to use this plugin, please be sure to give the credits that are deserved.__
+:copyright: __This product is open source code. If you are going to use this plugin, please be sure to give the credits that are deserved.__
