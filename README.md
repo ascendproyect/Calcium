@@ -8,7 +8,7 @@ This plugin is configurable with all of the [__Hely Development__](http://discor
 
 --------
 
-## Feacture
+## Feature
 
 - Multiple categories
 - multiple pages
