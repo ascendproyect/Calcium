@@ -1,10 +1,18 @@
 package dev.hely.tag.profile.storage;
 
+import com.mongodb.MongoClient;
+import com.mongodb.MongoClientOptions;
+import com.mongodb.MongoCredential;
+import com.mongodb.ServerAddress;
+import com.mongodb.client.MongoCollection;
+import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.model.Filters;
 import com.mongodb.client.model.ReplaceOptions;
+import dev.hely.lib.CC;
 import dev.hely.tag.Neon;
 import dev.hely.tag.profile.StorageHook;
 import org.bson.Document;
+import org.bukkit.Bukkit;
 
 import java.util.Map;
 import java.util.UUID;
@@ -12,15 +20,20 @@ import java.util.concurrent.ConcurrentHashMap;
 
 public class Mongo implements StorageHook {
 
-    private final Map<UUID, String> storage = new ConcurrentHashMap<>();
+    private MongoCollection<Document> collection;
+    private final Map<UUID, String> storage;
+
+    public Mongo(){
+         this.storage = new ConcurrentHashMap<>();
+    }
 
     @Override
     public String getTag(UUID player) {
-        if(storage.containsKey(player)) return storage.get(player);
+        if(this.storage.containsKey(player)) return this.storage.get(player);
 
-        Document document = Neon.getPlugin().getProfileManager().getCollection().find(Filters.eq("UUID", player.toString())).first();
+        Document document = this.collection.find(Filters.eq("UUID", player.toString())).first();
         if (document == null) {
-            storage.put(player, "");
+            this.storage.put(player, "");
             return "";
         }
         storage.put(player, document.getString("Tag"));
@@ -29,12 +42,39 @@ public class Mongo implements StorageHook {
 
     @Override
     public void setTag(UUID player, String tag) {
-        if (storage.containsKey(player)) storage.remove(player);
-        storage.put(player, tag);
+        this.storage.remove(player);
+        this.storage.put(player, tag);
 
         Document document = new Document();
         document.put("UUID", player.toString());
         document.put("Tag", tag);
-        Neon.getPlugin().getProfileManager().getCollection().replaceOne(Filters.eq("UUID", player.toString()), document, new ReplaceOptions().upsert(true));
+        this.collection.replaceOne(Filters.eq("UUID", player.toString()), document, new ReplaceOptions().upsert(true));
+    }
+
+    @Override
+    public void onEnable() {
+        MongoDatabase mongoDatabase;
+        if (Neon.getPlugin().getConfig().getBoolean("settings.storage.mongo.auth.enabled")) {
+            ServerAddress serverAddress = new ServerAddress(Neon.getPlugin().getConfig().getString("settings.storage.mongo.address"),
+                    Neon.getPlugin().getConfig().getInt("settings.storage.mongo.port"));
+            MongoCredential credential = MongoCredential.createCredential(Neon.getPlugin().getConfig().getString("settings.storage.mongo.auth.user"),
+                    Neon.getPlugin().getConfig().getString("settings.storage.mongo.database_name"),
+                    Neon.getPlugin().getConfig().getString("settings.storage.mongo.auth.password").toCharArray());
+
+            mongoDatabase = new MongoClient(serverAddress, credential,
+                    MongoClientOptions.builder().build()).getDatabase(Neon.getPlugin().getConfig().getString("settings.storage.mongo.database_name"));
+        } else {
+            mongoDatabase = new MongoClient(Neon.getPlugin().getConfig().getString("settings.storage.mongo.address"),
+                    Neon.getPlugin().getConfig().getInt("settings.storage.mongo.port")).getDatabase(Neon.getPlugin().getConfig().getString("settings.storage.mongo.database_name"));
+        }
+
+        this.collection = mongoDatabase.getCollection("user");
+
+        Bukkit.getConsoleSender().sendMessage(CC.translate("&aYou have successfully connected to Mongo"));
+    }
+
+    @Override
+    public void onDisable() {
+
     }
 }
