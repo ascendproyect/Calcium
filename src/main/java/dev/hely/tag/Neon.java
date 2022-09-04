@@ -45,7 +45,7 @@ public class Neon extends JavaPlugin {
         this.moduleManager = new ModuleManager();
         this.profileManager = new ProfileManager();
 
-        if (Bukkit.getPluginManager().isPluginEnabled("PlaceholderAPI")) new PlaceHolderAPIExpansion().register();
+        new PlaceHolderAPIExpansion().register();
         Bukkit.getConsoleSender().sendMessage(CC.translate("&9"));
         Bukkit.getConsoleSender().sendMessage(CC.translate("&9Loading plugin..."));
         Bukkit.getConsoleSender().sendMessage(CC.translate("&9"));

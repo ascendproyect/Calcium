@@ -1,6 +1,7 @@
 package dev.hely.lib;
 
 import org.bukkit.ChatColor;
+import org.bukkit.enchantments.Enchantment;
 
 import static dev.hely.lib.Assert.assertNotNull;
 
@@ -10,6 +11,9 @@ import static dev.hely.lib.Assert.assertNotNull;
  */
 
 public class CC {
+
+    public static Enchantment FAKE_GLOW;
+
     public static String translate(String input) {
         assertNotNull(input);
         return ChatColor.translateAlternateColorCodes('&', input);

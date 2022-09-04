@@ -9,11 +9,7 @@ import java.util.concurrent.ConcurrentHashMap;
 
 public class YML implements StorageHook {
 
-    private static Map<UUID, String> tag = new ConcurrentHashMap<>();
-
-    public YML(){
-        tag = new HashMap<>();
-    }
+    private static final Map<UUID, String> tag = new ConcurrentHashMap<>();
 
     public static Map<UUID, String> getTag() {
         return tag;

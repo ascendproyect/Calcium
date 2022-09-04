@@ -84,7 +84,7 @@ public class ProfileManager {
                 for(String player: Neon.getPlugin().getProfileConfig().getConfig().getConfigurationSection("profile").getKeys(false)){
                     UUID uuid = UUID.fromString(player);
                     String tags = Neon.getPlugin().getProfileConfig().getConfig().getString("profile." + player + ".tag");
-                    Neon.getPlugin().getProfileManager().getStorage().setTag(uuid, tags);
+                    storage.setTag(uuid, tags);
                 }
                 Bukkit.getConsoleSender().sendMessage(CC.translate("&aYou have successfully connected to the default YAML system"));
                 break;

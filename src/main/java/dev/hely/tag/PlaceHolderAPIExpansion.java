@@ -6,7 +6,7 @@ import org.bukkit.entity.Player;
 public class PlaceHolderAPIExpansion extends PlaceholderExpansion {
     @Override
     public String getIdentifier() {
-        return "Neon";
+        return "neon";
     }
 
     @Override
@@ -21,7 +21,7 @@ public class PlaceHolderAPIExpansion extends PlaceholderExpansion {
 
     @Override
     public String onPlaceholderRequest(Player player, String identifier) {
-        if(identifier.equalsIgnoreCase("_player_tag")){
+        if(identifier.equalsIgnoreCase("player_tag")){
             return Neon.getPlugin().getProfileManager().getStorage().getTag(player.getUniqueId());
         }
         return null;
