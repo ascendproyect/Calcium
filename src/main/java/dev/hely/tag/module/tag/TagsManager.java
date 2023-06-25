@@ -20,20 +20,20 @@ public class TagsManager {
 
     public void onLoad(){
         this.tags.clear();
-        for(String tag: Neon.getPlugin().getTagsConfig().getConfig().getConfigurationSection("tags").getKeys(false)){
-            ItemStack item = ItemMaker.of(Material.getMaterial(Neon.getPlugin().getTagsConfig().getConfig().getInt("tags."+tag+".item")))
-                    .data((short) Neon.getPlugin().getTagsConfig().getConfig().getInt("tags."+tag+".data"))
-                    .amount(Neon.getPlugin().getTagsConfig().getConfig().getInt("tags."+tag+".amount"))
+        for(String tag: Neon.getInstance().getTagsConfig().getConfig().getConfigurationSection("tags").getKeys(false)){
+            ItemStack item = ItemMaker.of(Material.getMaterial(Neon.getInstance().getTagsConfig().getConfig().getInt("tags."+tag+".item")))
+                    .setData((short) Neon.getInstance().getTagsConfig().getConfig().getInt("tags."+tag+".data"))
+                    .setAmount(Neon.getInstance().getTagsConfig().getConfig().getInt("tags."+tag+".amount"))
                     .build();
-            String displayname = Neon.getPlugin().getTagsConfig().getConfig().getString("tags."+tag+".displayname");
-            String category = Neon.getPlugin().getTagsConfig().getConfig().getString("tags."+tag+".category");
-            String perm = Neon.getPlugin().getTagsConfig().getConfig().getString("tags."+tag+".permission");
+            String displayname = Neon.getInstance().getTagsConfig().getConfig().getString("tags."+tag+".displayname");
+            String category = Neon.getInstance().getTagsConfig().getConfig().getString("tags."+tag+".category");
+            String perm = Neon.getInstance().getTagsConfig().getConfig().getString("tags."+tag+".permission");
 
-            List<String> equipped = Neon.getPlugin().getTagsConfig().getConfig().getStringList("tags."+tag+".lore.equipped");
-            List<String> equip = Neon.getPlugin().getTagsConfig().getConfig().getStringList("tags."+tag+".lore.equip");
-            List<String> no_perm = Neon.getPlugin().getTagsConfig().getConfig().getStringList("tags."+tag+".lore.no_perm");
+            List<String> equipped = Neon.getInstance().getTagsConfig().getConfig().getStringList("tags."+tag+".lore.equipped");
+            List<String> equip = Neon.getInstance().getTagsConfig().getConfig().getStringList("tags."+tag+".lore.equip");
+            List<String> no_perm = Neon.getInstance().getTagsConfig().getConfig().getStringList("tags."+tag+".lore.no_perm");
 
-            int slot = Neon.getPlugin().getTagsConfig().getConfig().getInt("tags."+tag+".slot");
+            int slot = Neon.getInstance().getTagsConfig().getConfig().getInt("tags."+tag+".slot");
 
             this.tags.add(new Tags(item, tag, displayname, category, perm, equipped, equip, no_perm, slot));
         }

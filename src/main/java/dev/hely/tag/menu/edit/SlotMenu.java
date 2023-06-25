@@ -24,9 +24,15 @@ public class SlotMenu extends Menu {
         this.category = category;
     }
 
+
+    @Override
+    public String getName() {
+        return "editslot";
+    }
+
     @Override
     public String getTitle(Player player) {
-        return "&7Category edit";
+        return "&8Slot Editing";
     }
 
     @Override
@@ -36,7 +42,7 @@ public class SlotMenu extends Menu {
 
 
     @Override
-    public Map<Integer, Button> getButtons(Player player) {
+    public Map<Integer, Button> getMenuContent(Player player) {
         Map<Integer, Button> button= new HashMap<>();
         for(int j=0;j<getSize();j++){
             button.put(j, new SlotButton(j, category));
@@ -46,24 +52,26 @@ public class SlotMenu extends Menu {
 
     @AllArgsConstructor
     private static class SlotButton extends Button{
+
         private final int S;
         private final Category category;
+
         @Override
-        public ItemStack getButtonItem(Player player) {
-            if(Neon.getPlugin().getConfig().getInt("categorys."+category.getName()+".slot") - 1 == S){
-                return ItemMaker.of(Material.STAINED_GLASS_PANE).displayName("&aselected").data((short) 5).build();
+        public ItemStack getItemStack(Player player) {
+            if(Neon.getInstance().getConfig().getInt("categorys."+category.getName()+".slot") - 1 == S){
+                return ItemMaker.of(Material.STAINED_GLASS_PANE).setDisplayName("&&cNot Available").setData((short) 14).build();
             }else{
-                return ItemMaker.of(Material.STAINED_GLASS_PANE).displayName("&cUnselected").data((short) 15).build();
+                return ItemMaker.of(Material.STAINED_GLASS_PANE).setDisplayName("&aAvailable").setData((short) 15).build();
             }
         }
 
         @Override
-        public void clicked(Player player, int slot, ClickType clickType, int hotbarButton) {
-            if(Neon.getPlugin().getConfig().getInt("categorys."+category.getName()+".slot") - 1 != S){
-                FileConfiguration config = Neon.getPlugin().getConfig();
+        public void onClick(Player player, int slot, ClickType clickType) {
+            if(Neon.getInstance().getConfig().getInt("categorys."+category.getName()+".slot") - 1 != S){
+                FileConfiguration config = Neon.getInstance().getConfig();
                 config.set("categorys."+category.getName()+".slot", S+1);
-                Neon.getPlugin().saveConfig();
-                Neon.getPlugin().getModuleManager().getCategory().onLoad();
+                Neon.getInstance().saveConfig();
+                Neon.getInstance().getModuleManager().getCategory().onLoad();
                 new EditCatMenu(category).openMenu(player);
             }
         }

@@ -71,11 +71,11 @@ public class MySQL implements StorageHook {
 
     @Override
     public void onEnable() {
-        String host = Neon.getPlugin().getConfig().getString("settings.storage.mysql.host");
-        int port = Neon.getPlugin().getConfig().getInt("settings.storage.mysql.port");
-        String user = Neon.getPlugin().getConfig().getString("settings.storage.mysql.user");
-        String database = Neon.getPlugin().getConfig().getString("settings.storage.mysql.database");
-        String password = Neon.getPlugin().getConfig().getString("settings.storage.mysql.password");
+        String host = Neon.getInstance().getConfig().getString("settings.storage.mysql.host");
+        int port = Neon.getInstance().getConfig().getInt("settings.storage.mysql.port");
+        String user = Neon.getInstance().getConfig().getString("settings.storage.mysql.user");
+        String database = Neon.getInstance().getConfig().getString("settings.storage.mysql.database");
+        String password = Neon.getInstance().getConfig().getString("settings.storage.mysql.password");
 
         try {
             this.connection = DriverManager.getConnection("jdbc:mysql://" + host + ":" + port + "/" + database + "?autoReconnect=true&autoReconnectForPools=true&interactiveClient=true&characterEncoding=UTF-8", user, password);

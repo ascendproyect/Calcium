@@ -22,7 +22,7 @@ settings:
     - "&aYou have successfully selected this tag."
 
   menu:
-    title: "&9&lNeon tags"
+    title: "&8Tag Menu"
     raw: 3
     fill:
       enabled: true

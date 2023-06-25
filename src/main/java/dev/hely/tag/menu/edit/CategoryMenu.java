@@ -18,15 +18,20 @@ public class CategoryMenu extends Menu {
     private int s;
 
     @Override
-    public String getTitle(Player player) {
-        return "&9Category edit";
+    public String getName() {
+        return "category";
     }
 
     @Override
-    public Map<Integer, Button> getButtons(Player player) {
+    public String getTitle(Player player) {
+        return "&8Category Edit";
+    }
+
+    @Override
+    public Map<Integer, Button> getMenuContent(Player player) {
         Map<Integer, Button> button= new HashMap<>();
         s=0;
-        Neon.getPlugin().getModuleManager().getCategory().getCategory().forEach(category -> {
+        Neon.getInstance().getModuleManager().getCategory().getCategory().forEach(category -> {
             button.put(s, new CategoryButton(category));
             s++;
         });
@@ -39,14 +44,14 @@ public class CategoryMenu extends Menu {
         private final Category category;
 
         @Override
-        public ItemStack getButtonItem(Player player) {
-            return ItemMaker.of(category.getItem().getType()).data(category.getItem().getData().getData())
-                    .amount(category.getItem().getAmount()).displayName(category.getDisplayname()).lore(category.getLore())
+        public ItemStack getItemStack(Player player) {
+            return ItemMaker.of(category.getItem().getType()).setData(category.getItem().getData().getData())
+                    .setAmount(category.getItem().getAmount()).setDisplayName(category.getDisplayname()).setLore(category.getLore())
                     .build();
         }
 
         @Override
-        public void clicked(Player player, int slot, ClickType clickType, int hotbarButton) {
+        public void onClick(Player player, int slot, ClickType clickType) {
              new EditCatMenu(category).openMenu(player);
         }
     }

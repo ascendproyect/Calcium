@@ -16,13 +16,19 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class FillMenu extends Menu {
+
     @Override
-    public String getTitle(Player player) {
-        return "&7Edit menu";
+    public String getName() {
+        return "editfill";
     }
 
     @Override
-    public Map<Integer, Button> getButtons(Player player) {
+    public String getTitle(Player player) {
+        return "&8Fill Data Editing";
+    }
+
+    @Override
+    public Map<Integer, Button> getMenuContent(Player player) {
         Map<Integer, Button> button= new HashMap<>();
         for(int j=0;j<=15;j++){
             button.put(j, new FillButton(j));
@@ -35,21 +41,21 @@ public class FillMenu extends Menu {
 
         private final int data;
         @Override
-        public ItemStack getButtonItem(Player player) {
+        public ItemStack getItemStack(Player player) {
             if(Configuration.Menu_FillData == data){
-                return ItemMaker.of(Material.STAINED_GLASS_PANE).displayName("&aselected").data((short) data).build();
+                return ItemMaker.of(Material.STAINED_GLASS_PANE).setDisplayName("&7").setData((short) data).build();
             }else{
-                return ItemMaker.of(Material.STAINED_GLASS_PANE).displayName("&cUnselected").data((short) data).build();
+                return ItemMaker.of(Material.STAINED_GLASS_PANE).setDisplayName("&7").setData((short) data).build();
             }
         }
 
         @Override
-        public void clicked(Player player, int slot, ClickType clickType, int hotbarButton) {
+        public void onClick(Player player, int slot, ClickType clickType) {
             if(Configuration.Menu_FillData != data){
-                FileConfiguration config = Neon.getPlugin().getConfig();
+                FileConfiguration config = Neon.getInstance().getConfig();
                 config.set("settings.menu.fill.data", data);
-                Neon.getPlugin().saveConfig();
-                Neon.getPlugin().onReload();
+                Neon.getInstance().saveConfig();
+                Neon.getInstance().onReload();
                 new EditMenu().openMenu(player);
             }
         }

@@ -54,18 +54,18 @@ public class Mongo implements StorageHook {
     @Override
     public void onEnable() {
         MongoDatabase mongoDatabase;
-        if (Neon.getPlugin().getConfig().getBoolean("settings.storage.mongo.auth.enabled")) {
-            ServerAddress serverAddress = new ServerAddress(Neon.getPlugin().getConfig().getString("settings.storage.mongo.address"),
-                    Neon.getPlugin().getConfig().getInt("settings.storage.mongo.port"));
-            MongoCredential credential = MongoCredential.createCredential(Neon.getPlugin().getConfig().getString("settings.storage.mongo.auth.user"),
-                    Neon.getPlugin().getConfig().getString("settings.storage.mongo.database_name"),
-                    Neon.getPlugin().getConfig().getString("settings.storage.mongo.auth.password").toCharArray());
+        if (Neon.getInstance().getConfig().getBoolean("settings.storage.mongo.auth.enabled")) {
+            ServerAddress serverAddress = new ServerAddress(Neon.getInstance().getConfig().getString("settings.storage.mongo.address"),
+                    Neon.getInstance().getConfig().getInt("settings.storage.mongo.port"));
+            MongoCredential credential = MongoCredential.createCredential(Neon.getInstance().getConfig().getString("settings.storage.mongo.auth.user"),
+                    Neon.getInstance().getConfig().getString("settings.storage.mongo.database_name"),
+                    Neon.getInstance().getConfig().getString("settings.storage.mongo.auth.password").toCharArray());
 
             mongoDatabase = new MongoClient(serverAddress, credential,
-                    MongoClientOptions.builder().build()).getDatabase(Neon.getPlugin().getConfig().getString("settings.storage.mongo.database_name"));
+                    MongoClientOptions.builder().build()).getDatabase(Neon.getInstance().getConfig().getString("settings.storage.mongo.database_name"));
         } else {
-            mongoDatabase = new MongoClient(Neon.getPlugin().getConfig().getString("settings.storage.mongo.address"),
-                    Neon.getPlugin().getConfig().getInt("settings.storage.mongo.port")).getDatabase(Neon.getPlugin().getConfig().getString("settings.storage.mongo.database_name"));
+            mongoDatabase = new MongoClient(Neon.getInstance().getConfig().getString("settings.storage.mongo.address"),
+                    Neon.getInstance().getConfig().getInt("settings.storage.mongo.port")).getDatabase(Neon.getInstance().getConfig().getString("settings.storage.mongo.database_name"));
         }
 
         this.collection = mongoDatabase.getCollection("user");

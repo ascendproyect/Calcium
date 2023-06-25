@@ -3,7 +3,7 @@ package dev.hely.tag.menu;
 import dev.hely.lib.CC;
 import dev.hely.lib.maker.ItemMaker;
 import dev.hely.lib.menu.button.Button;
-import dev.hely.lib.menu.pagination.PaginatedMenu;
+import dev.hely.lib.menu.implement.PaginatedMenu;
 import dev.hely.tag.Neon;
 import dev.hely.tag.configuration.Configuration;
 import dev.hely.tag.module.category.Category;
@@ -27,15 +27,19 @@ public class SubTagMenu extends PaginatedMenu {
     }
 
     @Override
-    public String getPrePaginatedTitle(Player player) {
+    public String getName() {
+        return "subtag";
+    }
+    @Override
+    public String getTitle(Player player) {
         return category.getTitle();
     }
 
     @Override
-    public Map<Integer, Button> getAllPagesButtons(Player player) {
+    public Map<Integer, Button> getPaginatedContent(Player player) {
         Map<Integer, Button> button = new HashMap<>();
 
-        Neon.getPlugin().getModuleManager().getTags().getTags().forEach(tags -> {
+        Neon.getInstance().getModuleManager().getTags().getTags().forEach(tags -> {
             if(tags.getCategory().equalsIgnoreCase(category.getName())){
                 button.put(tags.getSlot() - 1, new TagsButton(tags));
             }
@@ -49,10 +53,10 @@ public class SubTagMenu extends PaginatedMenu {
         private final Tags tags;
 
         @Override
-        public ItemStack getButtonItem(Player player) {
+        public ItemStack getItemStack(Player player) {
             List<String> lore = new ArrayList<>();
             if(player.hasPermission(tags.getPerm())
-                    && Neon.getPlugin().getProfileManager().getStorage().getTag(player.getUniqueId()).equalsIgnoreCase(tags.getDisplayname())){
+                    && Neon.getInstance().getProfileManager().getStorage().getTag(player.getUniqueId()).equalsIgnoreCase(tags.getDisplayname())){
                 for(String l:tags.getEquiped()){
                     lore.add(l.replace("%player_name%", player.getName())
                             .replace("%tag_display%", tags.getDisplayname()));
@@ -68,16 +72,18 @@ public class SubTagMenu extends PaginatedMenu {
                             .replace("%tag_display%", tags.getDisplayname()));
                 }
             }
-            return ItemMaker.of(tags.getItem().getType()).data(tags.getItem().getData().getData())
-                    .amount(tags.getItem().getAmount()).displayName(tags.getDisplayname()).lore(lore)
+            return ItemMaker.of(tags.getItem().getType()).setData(tags.getItem().getData().getData())
+                    .setAmount(tags.getItem().getAmount()).setDisplayName(tags.getDisplayname()).setLore(lore)
                     .build();
         }
 
         @Override
-        public void clicked(Player player, int slot, ClickType clickType, int hotbarButton) {
+        public void onClick(Player player, int slot, ClickType clickType) {
             if(player.hasPermission(tags.getPerm())){
-                Neon.getPlugin().getProfileManager().getStorage().setTag(player.getUniqueId(), tags.getDisplayname());
+                Neon.getInstance().getProfileManager().getStorage().setTag(player.getUniqueId(), tags.getDisplayname());
+
                 player.closeInventory();
+
                 for(String msg: Configuration.Select_Tag){
                     player.sendMessage(CC.translate(msg));
                 }

@@ -35,9 +35,9 @@ public class YML implements StorageHook {
 
     @Override
     public void onEnable() {
-        for(String player: Neon.getPlugin().getProfileConfig().getConfig().getConfigurationSection("profile").getKeys(false)){
+        for(String player: Neon.getInstance().getProfileConfig().getConfig().getConfigurationSection("profile").getKeys(false)){
             UUID uuid = UUID.fromString(player);
-            String tags = Neon.getPlugin().getProfileConfig().getConfig().getString("profile." + player + ".tag");
+            String tags = Neon.getInstance().getProfileConfig().getConfig().getString("profile." + player + ".tag");
             this.setTag(uuid, tags);
         }
         Bukkit.getConsoleSender().sendMessage(CC.translate("&aYou have successfully connected to the default YAML system"));
@@ -45,10 +45,10 @@ public class YML implements StorageHook {
 
     @Override
     public void onDisable() {
-        FileConfiguration config = Neon.getPlugin().getProfileConfig().getConfig();
+        FileConfiguration config = Neon.getInstance().getProfileConfig().getConfig();
         for (Map.Entry<UUID, String> entry : this.getTag().entrySet()) {
             config.set("profile." + entry.getKey().toString() + ".tag", entry.getValue());
         }
-        Neon.getPlugin().getProfileConfig().save();
+        Neon.getInstance().getProfileConfig().save();
     }
 }

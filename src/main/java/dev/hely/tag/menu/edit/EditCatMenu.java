@@ -20,12 +20,17 @@ public class EditCatMenu extends Menu {
     private final Category category;
 
     @Override
-    public String getTitle(Player player) {
-        return "&9Category edit";
+    public String getName() {
+        return "editcategory";
     }
 
     @Override
-    public Map<Integer, Button> getButtons(Player player) {
+    public String getTitle(Player player) {
+        return "&8Category Edit";
+    }
+
+    @Override
+    public Map<Integer, Button> getMenuContent(Player player) {
         Map<Integer, Button> button= new HashMap<>();
         button.put(0, new DisplaynameButton(category));
         button.put(1, new ItemButton(category));
@@ -40,13 +45,13 @@ public class EditCatMenu extends Menu {
         private final Category category;
 
         @Override
-        public ItemStack getButtonItem(Player player) {
-            return ItemMaker.of(Material.SIGN).displayName("&eSet displayname")
-                    .lore("", "&7Displayname: " + category.getDisplayname(), "").build();
+        public ItemStack getItemStack(Player player) {
+            return ItemMaker.of(Material.SIGN).setDisplayName("&6&lEdit Display Name")
+                    .setLore("&7Click here to update this category", "&7display name!", "", "&6Current Display Name: " + category.getDisplayname()).build();
         }
 
         @Override
-        public void clicked(Player player, int slot, ClickType clickType, int hotbarButton) {
+        public void onClick(Player player, int slot, ClickType clickType) {
             player.closeInventory();
             player.sendMessage(CC.translate("&eWrite the new displayname."));
             player.sendMessage(CC.translate("&cWrite 'cancel' to cancel the edit."));
@@ -61,16 +66,22 @@ public class EditCatMenu extends Menu {
         private final Category category;
 
         @Override
-        public ItemStack getButtonItem(Player player) {
+        public ItemStack getItemStack(Player player) {
             return ItemMaker.of(category.getItem().getType())
-                    .data(category.getItem().getData().getData()).displayName("&eSet item")
-                    .lore("", "&7Click to change item", "").build();
+                    .setData(category.getItem().getData().getData()).setDisplayName("&6&lEdit Category Material")
+                    .setLore("&7Click here to update this category",
+                            "&7display material and data!",
+                            "",
+                            "&6Current Material: &f" + category.getItem().getType().toString(),
+                            "&6Current Data: &f" + category.getItem().getData().getData(),
+                            "",
+                            "&7Click to update this category item.").build();
         }
 
         @Override
-        public void clicked(Player player, int slot, ClickType clickType, int hotbarButton) {
+        public void onClick(Player player, int slot, ClickType clickType) {
             player.closeInventory();
-            player.sendMessage(CC.translate("&eRight click on the item"));
+            player.sendMessage(CC.translate("&eRight click with the item to select. To cancel this action click with an empty hand."));
             EditMenu.edit.put(player.getUniqueId(), category.getName());
         }
     }
@@ -80,13 +91,15 @@ public class EditCatMenu extends Menu {
         private final Category category;
 
         @Override
-        public ItemStack getButtonItem(Player player) {
-            return ItemMaker.of(Material.ITEM_FRAME).displayName("&eSet slot")
-                    .lore("", "&7Slot: " + category.getSlot(), "").build();
+        public ItemStack getItemStack(Player player) {
+            return ItemMaker.of(Material.PAINTING).setDisplayName("&6&lSlot Editor")
+                    .setLore("&7Click here to update the slot of the category!",
+                            "",
+                            "&6Current Slot: &f" + category.getSlot()).build();
         }
 
         @Override
-        public void clicked(Player player, int slot, ClickType clickType, int hotbarButton) {
+        public void onClick(Player player, int slot, ClickType clickType) {
             new SlotMenu(category).openMenu(player);
         }
     }
@@ -97,13 +110,16 @@ public class EditCatMenu extends Menu {
         private final Category category;
 
         @Override
-        public ItemStack getButtonItem(Player player) {
-            return ItemMaker.of(Material.SIGN).displayName("&eSet title")
-                    .lore("", "&7Title: " + category.getTitle(), "").build();
+        public ItemStack getItemStack(Player player) {
+            return ItemMaker.of(Material.SIGN).setDisplayName("&6&lEdit Menu Title")
+                    .setLore("&7Click here to update this category",
+                            "&7title menu!",
+                            "",
+                            "&6Current Menu Title: &f" + category.getTitle()).build();
         }
 
         @Override
-        public void clicked(Player player, int slot, ClickType clickType, int hotbarButton) {
+        public void onClick(Player player, int slot, ClickType clickType) {
             EditMenu.category.put(player.getUniqueId(), category.getName());
             EditMenu.edit.put(player.getUniqueId(), "category");
             player.closeInventory();

@@ -20,15 +20,15 @@ public class CategoryManager {
 
     public void onLoad(){
         this.category.clear();
-        for(String category: Neon.getPlugin().getConfig().getConfigurationSection("categorys").getKeys(false)){
-            String displayname = Neon.getPlugin().getConfig().getString("categorys." + category + ".displayname");
-            List<String> lore = Neon.getPlugin().getConfig().getStringList("categorys." + category + ".lore");
-            ItemStack item = ItemMaker.of(Material.getMaterial(Neon.getPlugin().getConfig().getInt("categorys." + category + ".item")))
-                    .amount(Neon.getPlugin().getConfig().getInt("categorys." + category + ".amount"))
-                    .data((short) Neon.getPlugin().getConfig().getInt("categorys." + category + ".data")).build();
-            int slot = Neon.getPlugin().getConfig().getInt("categorys." + category + ".slot");
+        for(String category: Neon.getInstance().getConfig().getConfigurationSection("categorys").getKeys(false)){
+            String displayname = Neon.getInstance().getConfig().getString("categorys." + category + ".displayname");
+            List<String> lore = Neon.getInstance().getConfig().getStringList("categorys." + category + ".lore");
+            ItemStack item = ItemMaker.of(Material.getMaterial(Neon.getInstance().getConfig().getInt("categorys." + category + ".item")))
+                    .setAmount(Neon.getInstance().getConfig().getInt("categorys." + category + ".amount"))
+                    .setData((short) Neon.getInstance().getConfig().getInt("categorys." + category + ".data")).build();
+            int slot = Neon.getInstance().getConfig().getInt("categorys." + category + ".slot");
 
-            String title = Neon.getPlugin().getConfig().getString("categorys." + category + ".menu.title");
+            String title = Neon.getInstance().getConfig().getString("categorys." + category + ".menu.title");
             this.category.add(new Category(category, displayname, lore, item, slot, title));
         }
     }

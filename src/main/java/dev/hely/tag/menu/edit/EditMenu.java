@@ -25,12 +25,16 @@ public class EditMenu extends Menu implements Listener{
     public static final Map<UUID, String> category=new HashMap<>();
 
     @Override
+    public String getName() {
+        return "editmenu";
+    }
+    @Override
     public String getTitle(Player player) {
-        return "&9Edit menu";
+        return "&8Menu Edit";
     }
 
     @Override
-    public Map<Integer, Button> getButtons(Player player) {
+    public Map<Integer, Button> getMenuContent(Player player) {
         Map<Integer, Button> button= new HashMap<>();
         button.put(0, new TitleButton());
         button.put(1, new RawButton());
@@ -42,13 +46,13 @@ public class EditMenu extends Menu implements Listener{
     private static class TitleButton extends Button{
 
         @Override
-        public ItemStack getButtonItem(Player player) {
-            return ItemMaker.of(Material.SIGN).displayName("&eSet title")
-                    .lore("", "&7Title: " + Configuration.Menu_Title, "").build();
+        public ItemStack getItemStack(Player player) {
+            return ItemMaker.of(Material.SIGN).setDisplayName("&6&lEdit Menu Title")
+                    .setLore("&7Click here to update this menu title!", "", "&6Current Menu Title: " + Configuration.Menu_Title).build();
         }
 
         @Override
-        public void clicked(Player player, int slot, ClickType clickType, int hotbarButton) {
+        public void onClick(Player player, int slot, ClickType clickType) {
             player.closeInventory();
             player.sendMessage(CC.translate("&eWrite the new title."));
             player.sendMessage(CC.translate("&cWrite 'cancel' to cancel the edit."));
@@ -66,25 +70,25 @@ public class EditMenu extends Menu implements Listener{
                 return;
             }
             if(edit.get(player.getUniqueId()).equalsIgnoreCase("main")){
-                FileConfiguration config = Neon.getPlugin().getConfig();
+                FileConfiguration config = Neon.getInstance().getConfig();
                 config.set("settings.menu.title", event.getMessage());
-                Neon.getPlugin().saveConfig();
-                Neon.getPlugin().onReload();
+                Neon.getInstance().saveConfig();
+                Neon.getInstance().onReload();
                 edit.remove(player.getUniqueId());
                 new EditMenu().openMenu(player);
             }else if(edit.get(player.getUniqueId()).equalsIgnoreCase("category")){
-                FileConfiguration config = Neon.getPlugin().getConfig();
+                FileConfiguration config = Neon.getInstance().getConfig();
                 config.set("categorys."+category.get(player.getUniqueId())+".menu.title", event.getMessage());
-                Neon.getPlugin().saveConfig();
-                Neon.getPlugin().getModuleManager().getCategory().onLoad();
+                Neon.getInstance().saveConfig();
+                Neon.getInstance().getModuleManager().getCategory().onLoad();
                 edit.remove(player.getUniqueId());
                 category.remove(player.getUniqueId());
                 player.sendMessage(CC.translate("&aMenu title changed successfully"));
             }else if(edit.get(player.getUniqueId()).equalsIgnoreCase("categoryname")){
-                FileConfiguration config = Neon.getPlugin().getConfig();
+                FileConfiguration config = Neon.getInstance().getConfig();
                 config.set("categorys."+category.get(player.getUniqueId())+".displayname", event.getMessage());
-                Neon.getPlugin().saveConfig();
-                Neon.getPlugin().getModuleManager().getCategory().onLoad();
+                Neon.getInstance().saveConfig();
+                Neon.getInstance().getModuleManager().getCategory().onLoad();
                 edit.remove(player.getUniqueId());
                 category.remove(player.getUniqueId());
                 player.sendMessage(CC.translate("&aThe name of the category was changed correctly"));
@@ -95,13 +99,13 @@ public class EditMenu extends Menu implements Listener{
     private static class RawButton extends Button{
 
         @Override
-        public ItemStack getButtonItem(Player player) {
-            return ItemMaker.of(Material.ITEM_FRAME).displayName("&eSet size")
-                    .lore("", "&7Size: " + Configuration.Menu_Raw * 9, "").build();
+        public ItemStack getItemStack(Player player) {
+            return ItemMaker.of(Material.ITEM_FRAME).setDisplayName("&6&lEdit Menu Size")
+                    .setLore("&7Click here to update this menu size!", "", "&6Current Size: &f" + Configuration.Menu_Raw).build();
         }
 
         @Override
-        public void clicked(Player player, int slot, ClickType clickType, int hotbarButton) {
+        public void onClick(Player player, int slot, ClickType clickType) {
             new SizeMenu().openMenu(player);
         }
     }
@@ -109,26 +113,23 @@ public class EditMenu extends Menu implements Listener{
     private static class FillButton extends Button{
 
         @Override
-        public ItemStack getButtonItem(Player player) {
-            if(Configuration.Menu_Fill){
-                return ItemMaker.of(Material.INK_SACK).displayName("&eFill&7: &aEnabled")
-                        .lore("", "&7Click to &cDisabled", "").data((short) 10).build();
-            }else{
-                return ItemMaker.of(Material.INK_SACK).displayName("&eFill&7: &cDisabled")
-                        .lore("", "&7Click to &aEnabled", "").data((short) 8).build();
-            }
+        public ItemStack getItemStack(Player player) {
+
+            return ItemMaker.of(Material.LEVER).setDisplayName("&6&lEdit Menu Fill")
+                        .setLore("&7Click here to update this menu fill!", "",
+                                "&6Current Menu Fill: " + (Configuration.Menu_Fill ? "&aEnabled" : "&cDisabled")).build();
         }
 
         @Override
-        public void clicked(Player player, int slot, ClickType clickType, int hotbarButton) {
-            FileConfiguration config = Neon.getPlugin().getConfig();
+        public void onClick(Player player, int slot, ClickType clickType) {
+            FileConfiguration config = Neon.getInstance().getConfig();
             if(Configuration.Menu_Fill){
                 config.set("settings.menu.fill.enabled", false);
             }else{
                 config.set("settings.menu.fill.enabled", true);
             }
-            Neon.getPlugin().saveConfig();
-            Neon.getPlugin().onReload();
+            Neon.getInstance().saveConfig();
+            Neon.getInstance().onReload();
             new EditMenu().openMenu(player);
         }
     }
@@ -136,15 +137,15 @@ public class EditMenu extends Menu implements Listener{
     private static class FillSetButton extends Button{
 
         @Override
-        public ItemStack getButtonItem(Player player) {
+        public ItemStack getItemStack(Player player) {
             return ItemMaker.of(Material.STAINED_GLASS_PANE)
-                    .data((short) Configuration.Menu_FillData).displayName("&eFill color")
-                    .lore("", "&7Click to change color fill", "")
+                    .setData((short) Configuration.Menu_FillData).setDisplayName("&6&lEdit Menu Fill Color")
+                    .setLore("&7Click here to update this menu fill data!", "", "&6Current Fill Data: &f" + Configuration.Menu_FillData)
                     .build();
         }
 
         @Override
-        public void clicked(Player player, int slot, ClickType clickType, int hotbarButton) {
+        public void onClick(Player player, int slot, ClickType clickType) {
             new FillMenu().openMenu(player);
         }
     }
@@ -164,12 +165,12 @@ public class EditMenu extends Menu implements Listener{
                 }
 
                 event.setCancelled(true);
-                FileConfiguration config = Neon.getPlugin().getConfig();
+                FileConfiguration config = Neon.getInstance().getConfig();
                 config.set("categorys." + edit.get(player.getUniqueId()) + ".item", event.getItem().getTypeId());
                 config.set("categorys." + edit.get(player.getUniqueId()) + ".data", event.getItem().getData().getData());
                 config.set("categorys." + edit.get(player.getUniqueId()) + ".amount", event.getItem().getAmount());
-                Neon.getPlugin().saveConfig();
-                Neon.getPlugin().getModuleManager().getCategory().onLoad();
+                Neon.getInstance().saveConfig();
+                Neon.getInstance().getModuleManager().getCategory().onLoad();
                 edit.remove(player.getUniqueId());
                 player.sendMessage(CC.translate("&aCategory item changed successfully"));
             }

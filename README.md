@@ -21,11 +21,11 @@ This plugin is configurable with all of the [__Hely Development__](http://discor
 --------
 
 ## Simple Usage
-If you are not a developer, that’s fine! You can use this plugin as a regular plugin and use __PlaceholderAPI__ to be able to register your player tags. The __placeholder__ to be able to view your active tag is `%Neon_player_tag%`.
+If you are not a developer, that’s fine! You can use this plugin as a regular plugin and use __PlaceholderAPI__ to be able to register your player tags. The __placeholder__ to be able to view your active tag is `%neon_player_tag%`.
 
 **Developer Usage:**
 If you are a developer and you do not feel like using the __PlaceholderAPI__ to view player tags, we have made it very simple for you!
-Be sure to implement the `Neon-Tag.jar` as a dependency in your plugin, then you can use `Neon.getPlugin().getProfileManager ().getStorage().getTag(UUID);` to get the players active tag.
+Be sure to implement the `Neon-Tag.jar` as a dependency in your plugin, then you can use `Neon.getInstance().getProfileManager ().getStorage().getTag(UUID);` to get the players active tag.
 
 --------
 

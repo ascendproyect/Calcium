@@ -15,7 +15,7 @@ public class ProfileManager {
 
     public ProfileManager (){
         Bukkit.getConsoleSender().sendMessage(CC.translate("&aLooking for a storage system..."));
-        switch (Neon.getPlugin().getConfig().getString("settings.storage.drive")){
+        switch (Neon.getInstance().getConfig().getString("settings.storage.drive")){
             case "MONGO":
                 storage = new Mongo();
                 break;

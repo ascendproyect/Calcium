@@ -14,7 +14,6 @@ public class TagCommand extends BaseCommand {
     public TagCommand() {
         super("tag", Arrays.asList("tags", "prefix"), "neon.command.tag");
     }
-
     @Override
     public void execute(CommandSender sender, String[] args) {
         if(!(sender instanceof Player)) return;
@@ -23,14 +22,14 @@ public class TagCommand extends BaseCommand {
         if(args.length == 0){
             new TagMenu().openMenu(player);
         }else if(args.length == 1){
-            if(args[0].equalsIgnoreCase("settings") && player.hasPermission("neon.manager")){
+            if(args[0].equalsIgnoreCase("settings") && player.hasPermission("neon.command.tag.manager")){
                 new SettingsMenu().openMenu(player);
             }else if(args[0].equalsIgnoreCase("info")){
                 player.sendMessage(CC.translate("&7"));
-                player.sendMessage(CC.translate("  &9&lNeon tags"));
+                player.sendMessage(CC.translate(" &9&lNeon Tags"));
                 player.sendMessage(CC.translate("&7"));
-                player.sendMessage(CC.translate("&7 Version: " + Neon.getPlugin().getDescription().getVersion()));
-                player.sendMessage(CC.translate("&7 Author: ByJoako and LeandroSSJ"));
+                player.sendMessage(CC.translate("&9 Version: &f" + Neon.getInstance().getDescription().getVersion()));
+                player.sendMessage(CC.translate("&9 Author: &fByJoako and LeandroSSJ"));
                 player.sendMessage(CC.translate("&7"));
             }
         }

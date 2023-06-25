@@ -15,13 +15,19 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class SettingsMenu extends Menu {
+
     @Override
-    public String getTitle(Player player) {
-        return "&9Neon Settings";
+    public String getName() {
+        return "settings";
     }
 
     @Override
-    public Map<Integer, Button> getButtons(Player player) {
+    public String getTitle(Player player) {
+        return "&8Tags Edit";
+    }
+
+    @Override
+    public Map<Integer, Button> getMenuContent(Player player) {
         Map<Integer, Button> button = new HashMap<>();
         button.put(0, new EditButton());
         button.put(1, new EditCategoryButton());
@@ -34,13 +40,13 @@ public class SettingsMenu extends Menu {
     private static class EditCategoryButton extends Button {
 
         @Override
-        public ItemStack getButtonItem(Player player) {
-            return ItemMaker.of(Material.BOOK_AND_QUILL).displayName("&9Editing category")
-                    .lore("", "&7Click to edit the category", "").build();
+        public ItemStack getItemStack(Player player) {
+            return ItemMaker.of(Material.BOOK_AND_QUILL).setDisplayName("&6Category Settings")
+                    .setLore("", "&eClick to edit the category", "").build();
         }
 
         @Override
-        public void clicked(Player player, int slot, ClickType clickType, int hotbarButton) {
+        public void onClick(Player player, int slot, ClickType clickType) {
             new CategoryMenu().openMenu(player);
         }
     }
@@ -48,13 +54,13 @@ public class SettingsMenu extends Menu {
     private static class EditButton extends Button {
 
         @Override
-        public ItemStack getButtonItem(Player player) {
-            return ItemMaker.of(Material.BOOK_AND_QUILL).displayName("&9Editing menu")
-                    .lore("", "&7Click to edit menu", "").build();
+        public ItemStack getItemStack(Player player) {
+            return ItemMaker.of(Material.BOOK_AND_QUILL).setDisplayName("&6Menu Settings")
+                    .setLore("", "&eClick to edit menu", "").build();
         }
 
         @Override
-        public void clicked(Player player, int slot, ClickType clickType, int hotbarButton) {
+        public void onClick(Player player, int slot, ClickType clickType) {
             new EditMenu().openMenu(player);
         }
     }
@@ -62,14 +68,14 @@ public class SettingsMenu extends Menu {
     private static class ReloadButton extends Button {
 
         @Override
-        public ItemStack getButtonItem(Player player) {
-            return ItemMaker.of(Material.REDSTONE_TORCH_ON).displayName("&4Reload")
-                    .lore("", "&7Click to reload plugin", "").build();
+        public ItemStack getItemStack(Player player) {
+            return ItemMaker.of(Material.REDSTONE_TORCH_ON).setDisplayName("&6Reload")
+                    .setLore("", "&eClick to reload plugin", "").build();
         }
 
         @Override
-        public void clicked(Player player, int slot, ClickType clickType, int hotbarButton) {
-            Neon.getPlugin().onReload();
+        public void onClick(Player player, int slot, ClickType clickType) {
+            Neon.getInstance().onReload();
         }
     }
 }
