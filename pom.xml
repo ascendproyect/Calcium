@@ -4,13 +4,13 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>dev.hely.tags</groupId>
-    <artifactId>Neon-Tag</artifactId>
+    <groupId>org.ascend.calcium</groupId>
+    <artifactId>Calcium</artifactId>
     <version>1.0-SNAPSHOT</version>
 
     <properties>
-        <author>Hely Development</author>
-        <mainClass>dev.helydev.tag.Neon</mainClass>
+        <author>Ascend Project LLC</author>
+        <mainClass>org.ascend.calcium.Calcium</mainClass>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
@@ -81,14 +81,14 @@
                             <relocations>
                                 <relocation>
                                     <pattern>com.mongodb</pattern>
-                                    <shadedPattern>dev.hely.tag.library.mongodb</shadedPattern>
+                                    <shadedPattern>org.ascend.calcium.library.mongodb</shadedPattern>
                                 </relocation>
                                 <relocation>
                                     <pattern>dev.hely.lib</pattern>
-                                    <shadedPattern>dev.hely.tag.library.api</shadedPattern>
+                                    <shadedPattern>org.ascend.calcium.library.api</shadedPattern>
                                 </relocation>
                             </relocations>
-                            <finalName>Neon-Tags</finalName>
+                            <finalName>Calcium-Chat-Tags</finalName>
                         </configuration>
                     </execution>
                 </executions>

@@ -1,26 +1,22 @@
 settings:
   storage:
-    drive: "" # MYSQL, MONGO
-
+    drive: "MONGO" # Available Options: MYSQL, MONGO
     mongo:
       address: "127.0.0.1"
       port: 27017
-      database_name: "Neon"
+      database_name: "Calcium"
       auth:
         enabled: false
         user: "admin"
         password: ""
-
     mysql:
       host: ""
       port: 3306
-      database: "Neon"
+      database: "Calcium"
       user: "root"
       password: ""
-
   selected_tag:
     - "&aYou have successfully selected this tag."
-
   menu:
     title: "&8Tag Menu"
     raw: 3
@@ -34,11 +30,12 @@ categorys:
     data: 0
     amount: 1
     slot: 12
-    displayname: "&eCommon category"
+    displayname: "&eCommon Chat Prefixes"
     lore:
+      - "&7This category contains all of"
+      - "&7the &aCommon Chat Prefixes&7!"
       - ""
-      - "&7Click to open common category"
-      - ""
+      - "&6Left-Click &7to open this category."
     menu:
       title: "&9Common tags"
   country:
@@ -46,10 +43,11 @@ categorys:
     data: 0
     amount: 1
     slot: 16
-    displayname: "&eCountry category"
+    displayname: "&cCountry Chat Prefixes"
     lore:
+      - "&7This category contains all of"
+      - "&7the &cCountry Chat Prefixes&7!"
       - ""
-      - "&7Click to open country category"
-      - ""
+      - "&6Left-Click &7to open this category."
     menu:
       title: "&9Country tags"
