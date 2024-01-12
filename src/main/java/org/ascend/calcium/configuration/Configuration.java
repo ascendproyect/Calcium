@@ -11,6 +11,7 @@ public class Configuration {
     public static int Menu_Raw;
     public static boolean Menu_Fill;
     public static int Menu_FillData;
+    public static boolean Auto_Convert;
 
     public static void loadConfig(){
         Select_Tag = Calcium.getInstance().getConfig().getStringList("settings.selected_tag");
@@ -18,5 +19,7 @@ public class Configuration {
         Menu_Raw = Calcium.getInstance().getConfig().getInt("settings.menu.raw");
         Menu_Fill = Calcium.getInstance().getConfig().getBoolean("settings.menu.fill.enabled");
         Menu_FillData = Calcium.getInstance().getConfig().getInt("settings.menu.fill.data");
+
+        Auto_Convert = Calcium.getInstance().getConfig().getBoolean("settings.conversions.auto-convert");
     }
 }

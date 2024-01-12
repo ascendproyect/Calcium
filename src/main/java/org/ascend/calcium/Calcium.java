@@ -1,18 +1,16 @@
 package org.ascend.calcium;
 
-import org.ascend.calcium.command.TagCommand;
-import org.ascend.calcium.menu.edit.EditMenu;
-import org.ascend.calcium.module.ModuleManager;
 import dev.hely.lib.CC;
-import dev.hely.lib.command.CommandManager;
 import dev.hely.lib.configuration.Config;
 import dev.hely.lib.manager.Manager;
 import dev.hely.lib.menu.MenuListener;
 import dev.hely.lib.menu.MenuManager;
 import dev.hely.lib.sound.SoundManager;
-import org.ascend.calcium.configuration.Configuration;
-import org.ascend.calcium.profile.ProfileManager;
 import lombok.Getter;
+import org.ascend.calcium.configuration.Configuration;
+import org.ascend.calcium.menu.edit.EditMenu;
+import org.ascend.calcium.module.ModuleManager;
+import org.ascend.calcium.profile.ProfileManager;
 import org.bukkit.Bukkit;
 import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.configuration.InvalidConfigurationException;
@@ -45,7 +43,6 @@ public class Calcium extends JavaPlugin {
 
         this.setupManager();
         this.setupConfig();
-        this.setupCommand();
         this.setupListener();
 
         Configuration.loadConfig();
@@ -74,17 +71,10 @@ public class Calcium extends JavaPlugin {
         instance = null;
     }
 
-
-    public void setupCommand() {
-        CommandManager command = CommandManager.INSTANCE;
-        command.registerCommand(new TagCommand());
-    }
-
     public void setupManager() {
         this.managers = new ArrayList<>();
         this.managers.add(SoundManager.INSTANCE);
         this.managers.add(MenuManager.INSTANCE);
-        this.managers.add(CommandManager.INSTANCE);
 
         this.managers.forEach(manager -> manager.onEnable(this));
     }

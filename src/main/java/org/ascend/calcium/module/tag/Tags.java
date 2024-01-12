@@ -13,17 +13,17 @@ import java.util.List;
 @AllArgsConstructor
 @RequiredArgsConstructor
 public class Tags {
-
     private ItemStack item;
 
     private String name;
-    private String displayname;
+    private String displayName;
+    private List<String> description;
     private String category;
-    private String perm;
+    private String permission;
 
-    private List<String> equiped;
-    private List<String> equip;
-    private List<String> no_perm;
+    private List<String> alreadyActivatedLore;
+    private List<String> activateLore;
+    private List<String> noPermissionsLore;
 
-    private int slot;
+    private int weight;
 }

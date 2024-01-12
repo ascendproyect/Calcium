@@ -41,7 +41,7 @@ public class SubTagMenu extends PaginatedMenu {
 
         Calcium.getInstance().getModuleManager().getTags().getTags().forEach(tags -> {
             if(tags.getCategory().equalsIgnoreCase(category.getName())){
-                button.put(tags.getSlot() - 1, new TagsButton(tags));
+                button.put(tags.getWeight() - 1, new TagsButton(tags));
             }
         });
         return button;
@@ -55,32 +55,32 @@ public class SubTagMenu extends PaginatedMenu {
         @Override
         public ItemStack getItemStack(Player player) {
             List<String> lore = new ArrayList<>();
-            if(player.hasPermission(tags.getPerm())
-                    && Calcium.getInstance().getProfileManager().getStorage().getTag(player.getUniqueId()).equalsIgnoreCase(tags.getDisplayname())){
-                for(String l:tags.getEquiped()){
+            if(player.hasPermission(tags.getPermission())
+                    && Calcium.getInstance().getProfileManager().getStorage().getTag(player.getUniqueId()).equalsIgnoreCase(tags.getDisplayName())){
+                for(String l:tags.getAlreadyActivatedLore()){
                     lore.add(l.replace("%player_name%", player.getName())
-                            .replace("%tag_display%", tags.getDisplayname()));
+                            .replace("%tag_display%", tags.getDisplayName()));
                 }
-            }else if(player.hasPermission(tags.getPerm())){
-                for(String l:tags.getEquip()){
+            }else if(player.hasPermission(tags.getPermission())){
+                for(String l:tags.getActivateLore()){
                     lore.add(l.replace("%player_name%", player.getName())
-                            .replace("%tag_display%", tags.getDisplayname()));
+                            .replace("%tag_display%", tags.getDisplayName()));
                 }
             }else{
-                for(String l:tags.getNo_perm()){
+                for(String l:tags.getNoPermissionsLore()){
                     lore.add(l.replace("%player_name%", player.getName())
-                            .replace("%tag_display%", tags.getDisplayname()));
+                            .replace("%tag_display%", tags.getDisplayName()));
                 }
             }
             return ItemMaker.of(tags.getItem().getType()).setData(tags.getItem().getData().getData())
-                    .setAmount(tags.getItem().getAmount()).setDisplayName(tags.getDisplayname()).setLore(lore)
+                    .setAmount(tags.getItem().getAmount()).setDisplayName(tags.getDisplayName()).setLore(lore)
                     .build();
         }
 
         @Override
         public void onClick(Player player, int slot, ClickType clickType) {
-            if(player.hasPermission(tags.getPerm())){
-                Calcium.getInstance().getProfileManager().getStorage().setTag(player.getUniqueId(), tags.getDisplayname());
+            if(player.hasPermission(tags.getPermission())){
+                Calcium.getInstance().getProfileManager().getStorage().setTag(player.getUniqueId(), tags.getDisplayName());
 
                 player.closeInventory();
 

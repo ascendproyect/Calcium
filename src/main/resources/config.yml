@@ -1,4 +1,12 @@
 settings:
+  command-system:
+    disabled-commands:
+      - ""
+  conversions:
+    auto-convert: true # Do you want to auto-convert other tag plugins to implement the tags from them?
+  chat-system:
+    enabled: true # This will use the chat system, and format your chat for you!
+    format: "%prefix%%player%&7: &f%message%" # This is how messages will appear in chat.
   storage:
     drive: "MONGO" # Available Options: MYSQL, MONGO
     mongo:
