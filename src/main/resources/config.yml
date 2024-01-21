@@ -25,37 +25,13 @@ settings:
       password: ""
   selected_tag:
     - "&aYou have successfully selected this tag."
+  added_favourite:
+    - "&aYou have added the &6%tag% &aas a favourite!"
+  removed_favourite:
+    - "&cYou have removed the &6%tag% &cas a favourite."
   menu:
     title: "&8Tag Menu"
     raw: 3
     fill:
       enabled: true
       data: 15
-
-categorys:
-  common:
-    item: 54
-    data: 0
-    amount: 1
-    slot: 12
-    displayname: "&eCommon Chat Prefixes"
-    lore:
-      - "&7This category contains all of"
-      - "&7the &aCommon Chat Prefixes&7!"
-      - ""
-      - "&6Left-Click &7to open this category."
-    menu:
-      title: "&9Common tags"
-  country:
-    item: 54
-    data: 0
-    amount: 1
-    slot: 16
-    displayname: "&cCountry Chat Prefixes"
-    lore:
-      - "&7This category contains all of"
-      - "&7the &cCountry Chat Prefixes&7!"
-      - ""
-      - "&6Left-Click &7to open this category."
-    menu:
-      title: "&9Country tags"

@@ -15,8 +15,8 @@ package org.ascend.calcium.command.impl;
 //   Hely Development Discord: https://discord.gg/J9XMt8FCxN
 //============================================================
 
-import org.ascend.calcium.menu.SettingsMenu;
-import org.ascend.calcium.util.command.sub.SubCommand;
+import dev.hely.lib.command.sub.SubCommand;
+import org.ascend.calcium.menu.editor.MainEditorMenu;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
@@ -32,7 +32,7 @@ public class TagSettingsCommand extends SubCommand {
         if(!(sender instanceof Player)) return;
         Player player = (Player) sender;
 
-        new SettingsMenu().openMenu(player);
+        new MainEditorMenu().openMenu(player);
     }
 }
 

@@ -13,6 +13,10 @@ public class Configuration {
     public static int Menu_FillData;
     public static boolean Auto_Convert;
 
+    public static List<String> Add_Favourite;
+    public static List<String> Remove_Favourite;
+
+
     public static void loadConfig(){
         Select_Tag = Calcium.getInstance().getConfig().getStringList("settings.selected_tag");
         Menu_Title = Calcium.getInstance().getConfig().getString("settings.menu.title");
@@ -21,5 +25,9 @@ public class Configuration {
         Menu_FillData = Calcium.getInstance().getConfig().getInt("settings.menu.fill.data");
 
         Auto_Convert = Calcium.getInstance().getConfig().getBoolean("settings.conversions.auto-convert");
+
+
+        Add_Favourite = Calcium.getInstance().getConfig().getStringList("settings.added_favourite");
+        Remove_Favourite = Calcium.getInstance().getConfig().getStringList("settings.removed_favourite");
     }
 }

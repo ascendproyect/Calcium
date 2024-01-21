@@ -50,14 +50,12 @@ public class ConversionManager {
                 for (String identifier : eternaltagsSection.getKeys(false)) {
                     if (Calcium.getInstance().getModuleManager().getTags().getTag(identifier) != null) {
                         String prefix = eternaltagsConfig.getString(String.format("tags.%s.tag", identifier));
-                        List<String> description = eternaltagsConfig.getStringList(String.format("tags.%s.description", identifier));
                         String permission = eternaltagsConfig.getString(String.format("tags.%s.permission", identifier));
                         String material = eternaltagsConfig.getString(String.format("tags.%s.icon.material", identifier));
 
                         Calcium.getInstance().getModuleManager().getTags().createTag(identifier);
                         Tags tag = Calcium.getInstance().getModuleManager().getTags().getTag(identifier);
                         tag.setDisplayName(prefix);
-                        tag.setDescription(description);
                         tag.setPermission(permission);
                         tag.setItem(ItemMaker.of(Material.valueOf(material)).setData((short) 0).setAmount(1).build());
                         Calcium.getInstance().getModuleManager().getTags().saveTag(identifier);
@@ -70,13 +68,11 @@ public class ConversionManager {
                 for (String identifier : deluxeTagsSection.getKeys(false)) {
                     if (Calcium.getInstance().getModuleManager().getTags().getTag(identifier) != null) {
                         String prefix = deluxetagsConfig.getString(String.format("deluxetags.%s.tag", identifier));
-                        String description = deluxetagsConfig.getString(String.format("deluxetags.%s.description", identifier));
                         String permission = deluxetagsConfig.getString(String.format("deluxetags.%s.permission", identifier));
 
                         Calcium.getInstance().getModuleManager().getTags().createTag(identifier);
                         Tags tag = Calcium.getInstance().getModuleManager().getTags().getTag(identifier);
                         tag.setDisplayName(prefix);
-                        tag.setDescription(Collections.singletonList(description));
                         tag.setPermission(permission);
                         Calcium.getInstance().getModuleManager().getTags().saveTag(identifier);
                     }

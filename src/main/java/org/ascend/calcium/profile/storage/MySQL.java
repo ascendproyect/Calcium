@@ -6,6 +6,7 @@ import dev.hely.lib.CC;
 import org.bukkit.Bukkit;
 
 import java.sql.*;
+import java.util.List;
 import java.util.UUID;
 
 public class MySQL implements StorageHook {
@@ -57,6 +58,11 @@ public class MySQL implements StorageHook {
     }
 
     @Override
+    public List<String> getFavourites(UUID player) {
+        return null;
+    }
+
+    @Override
     public void setTag(UUID player, String tag) {
         if(!userExists(player)) createUser(player);
         try {
@@ -70,6 +76,11 @@ public class MySQL implements StorageHook {
     }
 
     @Override
+    public void setFavourites(UUID player, List<String> favourites) {
+
+    }
+
+    @Override
     public void onEnable() {
         String host = Calcium.getInstance().getConfig().getString("settings.storage.mysql.host");
         int port = Calcium.getInstance().getConfig().getInt("settings.storage.mysql.port");
@@ -79,7 +90,7 @@ public class MySQL implements StorageHook {
 
         try {
             this.connection = DriverManager.getConnection("jdbc:mysql://" + host + ":" + port + "/" + database + "?autoReconnect=true&autoReconnectForPools=true&interactiveClient=true&characterEncoding=UTF-8", user, password);
-            Bukkit.getConsoleSender().sendMessage(CC.translate("&aYou have successfully connected to MYSQL"));
+            Bukkit.getConsoleSender().sendMessage(CC.translate("&6[Calcium] &aYou have successfully connected to the &6MySQL Database&a!"));
         } catch (SQLException e) {
             Bukkit.getLogger().info("&cMySQL connection failed");
             e.printStackTrace();

@@ -14,7 +14,7 @@ public class ProfileManager {
     private final StorageHook storage;
 
     public ProfileManager (){
-        Bukkit.getConsoleSender().sendMessage(CC.translate("&aLooking for a storage system..."));
+        Bukkit.getConsoleSender().sendMessage(CC.translate("&6[Calcium[ &aLooking for storage system.."));
         switch (Calcium.getInstance().getConfig().getString("settings.storage.drive")){
             case "MONGO":
                 storage = new Mongo();

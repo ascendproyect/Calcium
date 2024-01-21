@@ -1,0 +1,19 @@
+categories:
+  all:
+    item: 54
+    data: 0
+    amount: 1
+    slot: 12
+    displayname: "&eAll Chat Prefixes"
+    lore:
+      - "&7This category contains all of"
+      - "&7the &aAll Chat Prefixes&7!"
+      - ""
+      - "&6Left-Click &7to open this category."
+    menu:
+      title: "&6All Chat Tags"
+    settings:
+      default: true
+      global: true
+      bypass-permission: "calcium.admin"
+      permission: "calcium.category.all"

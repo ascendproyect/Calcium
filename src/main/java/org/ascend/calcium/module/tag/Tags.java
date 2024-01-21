@@ -17,7 +17,6 @@ public class Tags {
 
     private String name;
     private String displayName;
-    private List<String> description;
     private String category;
     private String permission;
 

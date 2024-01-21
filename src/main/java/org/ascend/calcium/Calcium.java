@@ -1,21 +1,32 @@
 package org.ascend.calcium;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import dev.hely.lib.adapter.BlockVectorAdapter;
+import dev.hely.lib.adapter.LocationAdapter;
+import dev.hely.lib.adapter.PotionEffectAdapter;
+import dev.hely.lib.adapter.VectorAdapter;
+import org.ascend.calcium.command.TagSubCommand;
+import org.ascend.calcium.module.ModuleManager;
 import dev.hely.lib.CC;
+import dev.hely.lib.command.CommandManager;
 import dev.hely.lib.configuration.Config;
 import dev.hely.lib.manager.Manager;
 import dev.hely.lib.menu.MenuListener;
 import dev.hely.lib.menu.MenuManager;
 import dev.hely.lib.sound.SoundManager;
-import lombok.Getter;
 import org.ascend.calcium.configuration.Configuration;
-import org.ascend.calcium.menu.edit.EditMenu;
-import org.ascend.calcium.module.ModuleManager;
 import org.ascend.calcium.profile.ProfileManager;
+import lombok.Getter;
 import org.bukkit.Bukkit;
+import org.bukkit.Location;
 import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.bukkit.potion.PotionEffect;
+import org.bukkit.util.BlockVector;
+import org.bukkit.util.Vector;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -27,11 +38,13 @@ public class Calcium extends JavaPlugin {
     @Getter private static Calcium instance;
     private List<Manager> managers;
     private Config tagsConfig;
+    private Config categoriesConfig;
     private Config profileConfig;
     private ModuleManager moduleManager;
     private ProfileManager profileManager;
 
-    
+    public static final Gson PLAIN_GSON = (new GsonBuilder()).registerTypeHierarchyAdapter(PotionEffect.class, new PotionEffectAdapter()).registerTypeHierarchyAdapter(Location.class, new LocationAdapter()).registerTypeHierarchyAdapter(Vector.class, new VectorAdapter()).registerTypeAdapter(BlockVector.class, new BlockVectorAdapter()).serializeNulls().create();
+
     @Override
     public void onEnable() {
         instance = this;
@@ -43,6 +56,7 @@ public class Calcium extends JavaPlugin {
 
         this.setupManager();
         this.setupConfig();
+        this.setupCommand();
         this.setupListener();
 
         Configuration.loadConfig();
@@ -71,10 +85,19 @@ public class Calcium extends JavaPlugin {
         instance = null;
     }
 
+
+    public void setupCommand() {
+        CommandManager command = CommandManager.INSTANCE;
+        command.onEnable(this);
+
+        new TagSubCommand();
+    }
+
     public void setupManager() {
         this.managers = new ArrayList<>();
         this.managers.add(SoundManager.INSTANCE);
         this.managers.add(MenuManager.INSTANCE);
+        this.managers.add(CommandManager.INSTANCE);
 
         this.managers.forEach(manager -> manager.onEnable(this));
     }
@@ -82,7 +105,6 @@ public class Calcium extends JavaPlugin {
     public void setupListener(){
         PluginManager pluginManager = Bukkit.getServer().getPluginManager();
 
-        pluginManager.registerEvents(new EditMenu(), this);
         pluginManager.registerEvents(new MenuListener(this), this);
     }
 
@@ -90,6 +112,7 @@ public class Calcium extends JavaPlugin {
         try {
             this.tagsConfig = new Config(this, "tags");
             this.profileConfig = new Config(this, "profile");
+            this.categoriesConfig = new Config(this, "categories");
         } catch (IOException | InvalidConfigurationException e) {
             ConsoleCommandSender bukkitCommandSender = Bukkit.getConsoleSender();
 

@@ -16,8 +16,8 @@ package org.ascend.calcium.command.impl;
 //============================================================
 
 import dev.hely.lib.CC;
+import dev.hely.lib.command.sub.SubCommand;
 import org.ascend.calcium.Calcium;
-import org.ascend.calcium.util.command.sub.SubCommand;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
